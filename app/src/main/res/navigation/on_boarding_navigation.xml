@@ -10,6 +10,14 @@
         android:label="Welcome"
         tools:layout="@layout/fragment_boarding">
 
+        <action
+            android:id="@+id/action_onBoardingFragment_to_blankFragment2"
+            app:destination="@id/blankFragment2" />
     </fragment>
+    <fragment
+        android:id="@+id/blankFragment2"
+        android:name="com.store.storekhata.BlankFragment"
+        android:label="fragment_blank2"
+        tools:layout="@layout/fragment_blank2" />
 
 </navigation>

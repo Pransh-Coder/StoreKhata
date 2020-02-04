@@ -24,6 +24,11 @@ public class SplashScreen extends AppCompatActivity {
             public void onFinish() {
                 Intent intent = new Intent(SplashScreen.this , OnBoardingActivity.class);
                 startActivity(intent);
+                finish();
+                /*LoginFragment fragment = new LoginFragment();
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                transaction.replace(R.id.on_boarding_fragment_container, fragment);
+                transaction.commit();*/
             }
         }.start();
     }

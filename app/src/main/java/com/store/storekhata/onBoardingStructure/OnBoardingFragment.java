@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import com.store.storekhata.R;
 
@@ -22,6 +23,6 @@ public class OnBoardingFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-
+        //Navigation.findNavController(view).navigate(R.id.action_onBoardingFragment_to_blankFragment2);
     }
 }
