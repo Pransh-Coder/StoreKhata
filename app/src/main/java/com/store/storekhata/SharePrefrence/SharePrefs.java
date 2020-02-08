@@ -13,14 +13,31 @@ public class SharePrefs {
     public SharePrefs(Context context) {
         this.context = context;
     }
+
     private SharedPreferences getUserPreference() {
         return context.getSharedPreferences(context.getPackageName(), Activity.MODE_PRIVATE);
     }
+    // For creating session
+    public Boolean isLoggedIn(){
+        return getUserPreference().getBoolean("loggedin", false);
+    }
+    public void setLoggedIn(boolean b){
+        getUserPreference().edit().putBoolean("loggedin",b).apply();
+    }
+
     public String getAID() {
-        return getUserPreference().getString("UID", "");
+        return getUserPreference().getString("AID", "");
     }
 
     public void putAID(String s) {
-        getUserPreference().edit().putString("UID", s).apply();
+        getUserPreference().edit().putString("AID", s).apply();
+    }
+
+    public String getName() {
+        return getUserPreference().getString("name", "");
+    }
+
+    public void putName(String name) {
+        getUserPreference().edit().putString("name", name).apply();
     }
 }

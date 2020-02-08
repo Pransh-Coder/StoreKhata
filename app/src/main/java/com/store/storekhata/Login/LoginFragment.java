@@ -15,6 +15,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -26,6 +27,7 @@ import com.google.android.material.snackbar.Snackbar;
 import com.store.storekhata.NetworkingStructure.NetworkingCalls;
 import com.store.storekhata.R;
 import com.store.storekhata.SharePrefrence.SharePrefs;
+import com.store.storekhata.TrackDebit.TrackYourDebtFragment;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -69,7 +71,7 @@ public class LoginFragment extends Fragment {
             @Override
             public void onClick(View view) {
 
-                //Toast.makeText(getContext(), "clicked!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "clicked!", Toast.LENGTH_SHORT).show();
 
                 Email =email.getText().toString();
                 Password = password.getText().toString();
@@ -86,6 +88,11 @@ public class LoginFragment extends Fragment {
                 else
                 {
                     networkingCalls.adminLogin(Email,Password);
+                    Fragment TrackYourDebtFragment  = new TrackYourDebtFragment();
+                    FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                    transaction.replace(R.id.on_boarding_fragment_container, TrackYourDebtFragment ); // give your fragment container id in first parameter
+                    transaction.addToBackStack(null);  // if written, this transaction will be added to backstack
+                    transaction.commit();
                     /*Intent intent = new Intent(getApplicationContext(),Login.class);
                     startActivity(intent);*/
                 }

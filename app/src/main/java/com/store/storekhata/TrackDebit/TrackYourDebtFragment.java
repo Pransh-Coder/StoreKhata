@@ -1,26 +1,29 @@
-package com.store.storekhata.onBoardingStructure;
+package com.store.storekhata.TrackDebit;
 
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.store.storekhata.NetworkingStructure.NetworkingCalls;
 import com.store.storekhata.R;
 
 public class TrackYourDebtFragment extends Fragment {
 
     RecyclerView recyclerView;
-    RecyclerAdapterDiscussion_forum adapter;
+    RecyclerAdapterDebit adapter;
     RecyclerView.LayoutManager layoutManager;
 
-    FloatingActionButton addNewCustomers;
+    Button addbtn;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -32,7 +35,13 @@ public class TrackYourDebtFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_track_your_debt, container, false);
+        NetworkingCalls networkingCalls = new NetworkingCalls(getContext(),getActivity());
+        addbtn = rootView.findViewById(R.id.addCust);
 
+        recyclerView = rootView.findViewById(R.id.recyclerView);
+        layoutManager=new LinearLayoutManager(getContext());
+        recyclerView.setLayoutManager(layoutManager);
+        networkingCalls.showPersonsDebit(recyclerView);
         return rootView;
     }
 
