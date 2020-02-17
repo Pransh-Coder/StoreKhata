@@ -2,6 +2,7 @@ package com.store.storekhata.TrackDebit;
 
 import android.app.Activity;
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,9 +13,11 @@ import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.store.storekhata.Login.LoginCallBack;
 import com.store.storekhata.R;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class RecyclerAdapterDebit extends RecyclerView.Adapter<RecyclerAdapterDebit.ViewHolder>{
@@ -23,6 +26,8 @@ public class RecyclerAdapterDebit extends RecyclerView.Adapter<RecyclerAdapterDe
     Context context;
     List<Debt_Pojo> debtPojoList = new ArrayList<>();
     Activity activity;
+
+    ArrayList<Debt_Pojo> doubleList;
 
     public RecyclerAdapterDebit(Context context, List<Debt_Pojo> debtPojoList, Activity activity) {
         this.context = context;
@@ -48,7 +53,33 @@ public class RecyclerAdapterDebit extends RecyclerView.Adapter<RecyclerAdapterDe
 
         for(int i=0;i<debtPojoList.size();i++){
 
-            System.out.println(debtPojoList.get(i).getName());
+            //System.out.println(debtPojoList.get(i).getName());
+
+            doubleList = new ArrayList<>();
+            if (!doubleList.contains(debtPojoList.get(i).name)) {
+                for (int j = 0 ; j < doubleList.size() ; j++)
+                {
+                    if (doubleList.get(j).getName().equals(debtPojoList.get(i).getName())){
+                        Debt_Pojo debtPojo = new Debt_Pojo();
+                        debtPojo.setName(debtPojoList.get(i).getName());
+                        debtPojo.setDebtId(debtPojoList.get(i).getDebtId());
+                        debtPojo.setItemName(debtPojoList.get(i).getItemName());
+                        debtPojo.setPriceOfOne(debtPojoList.get(i).getPriceOfOne());
+                        debtPojo.setQuantity(debtPojoList.get(i).getQuantity());
+                        debtPojo.setUid(debtPojoList.get(i).getUid());
+                        debtPojo.setTotal(debtPojoList.get(i).getTotal()+doubleList.get(i).getTotal());
+                        doubleList.set(j,debtPojo);
+                    }
+                }
+
+            }
+            else{
+                doubleList.add(debtPojoList.get(i));
+            }
+
+        }
+        for (int j =0 ;j<doubleList.size();j++){
+            Log.e("abc","abc:"+doubleList.get(j).getTotal()+":"+doubleList.get(j).getName());
         }
 
     }

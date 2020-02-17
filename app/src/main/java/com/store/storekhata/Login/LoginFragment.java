@@ -88,11 +88,6 @@ public class LoginFragment extends Fragment {
                 else
                 {
                     networkingCalls.adminLogin(Email,Password);
-                    Fragment TrackYourDebtFragment  = new TrackYourDebtFragment();
-                    FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                    transaction.replace(R.id.on_boarding_fragment_container, TrackYourDebtFragment ); // give your fragment container id in first parameter
-                    transaction.addToBackStack(null);  // if written, this transaction will be added to backstack
-                    transaction.commit();
                     /*Intent intent = new Intent(getApplicationContext(),Login.class);
                     startActivity(intent);*/
                 }

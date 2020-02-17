@@ -3,21 +3,19 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/on_boarding_navigation"
-    app:startDestination="@id/onBoardingFragment">
+    app:startDestination="@id/loginFragment">
     <fragment
-        android:id="@+id/onBoardingFragment"
-        android:name="com.store.storekhata.onBoardingStructure.OnBoardingFragment"
-        android:label="Welcome"
-        tools:layout="@layout/fragment_boarding">
-
+        android:id="@+id/loginFragment"
+        android:name="com.store.storekhata.Login.LoginFragment"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login" >
         <action
-            android:id="@+id/action_onBoardingFragment_to_blankFragment2"
-            app:destination="@id/blankFragment2" />
+            android:id="@+id/action_loginFragment_to_trackYourDebtFragment"
+            app:destination="@id/trackYourDebtFragment" />
     </fragment>
     <fragment
-        android:id="@+id/blankFragment2"
-        android:name="com.store.storekhata.BlankFragment"
-        android:label="fragment_blank2"
-        tools:layout="@layout/fragment_blank2" />
-
+        android:id="@+id/trackYourDebtFragment"
+        android:name="com.store.storekhata.TrackDebit.TrackYourDebtFragment"
+        android:label="fragment_track_your_debt"
+        tools:layout="@layout/fragment_track_your_debt" />
 </navigation>

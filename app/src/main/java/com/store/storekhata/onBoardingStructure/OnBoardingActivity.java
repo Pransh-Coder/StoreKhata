@@ -9,12 +9,13 @@ import androidx.navigation.ui.NavigationUI;
 
 import android.os.Bundle;
 
+import com.store.storekhata.Login.LoginCallBack;
 import com.store.storekhata.Login.LoginFragment;
 import com.store.storekhata.R;
 import com.store.storekhata.SharePrefrence.SharePrefs;
 import com.store.storekhata.TrackDebit.TrackYourDebtFragment;
 
-public class OnBoardingActivity extends AppCompatActivity {
+public class OnBoardingActivity extends AppCompatActivity implements LoginCallBack {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,8 +26,6 @@ public class OnBoardingActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.onBoardingToolbar);
         setSupportActionBar(toolbar);
 
-        NavController navController = Navigation.findNavController(this, R.id.on_boarding_fragment_container);
-        NavigationUI.setupActionBarWithNavController(this, navController);
 
         if(sharePrefs.isLoggedIn()){
 
@@ -49,5 +48,14 @@ public class OnBoardingActivity extends AppCompatActivity {
     public boolean onSupportNavigateUp() {
         onBackPressed();
         return true;
+    }
+
+    @Override
+    public void AuthenticateUser() {
+        LoginFragment loginFragment = new LoginFragment();
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.on_boarding_fragment_container,loginFragment);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
     }
 }

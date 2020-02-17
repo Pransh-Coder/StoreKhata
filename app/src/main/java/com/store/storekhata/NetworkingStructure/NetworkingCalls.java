@@ -14,6 +14,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.store.storekhata.Login.LoginCallBack;
 import com.store.storekhata.SharePrefrence.SharePrefs;
 import com.store.storekhata.TrackDebit.Debt_Pojo;
 import com.store.storekhata.TrackDebit.RecyclerAdapterDebit;
@@ -41,11 +42,14 @@ public class NetworkingCalls {
 
     String id;
 
+    LoginCallBack loginCallBack;
+
     public NetworkingCalls(Context context, Activity activity) {
         this.context = context;
         this.activity = activity;
         requestQueue = Volley.newRequestQueue(this.context);
         sharePrefs = new SharePrefs(context);
+        loginCallBack = (LoginCallBack) activity;
     }
 
     private void addToQueue(StringRequest request) {
@@ -67,22 +71,30 @@ public class NetworkingCalls {
                     if (jsonObject.getString("status").equals("true")) {
 
                         JSONArray jsonArray = jsonObject.getJSONArray("data");
+                        Log.e("array" , jsonArray.toString());
 
                         //For creating session
-                        sharePrefs.setLoggedIn(true); // to make the value true from false and in splashscreen we will check whether value is true or false if true directly into the app else in LoginScreen
+                         // to make the value true from false and in splashscreen we will check whether value is true or false if true directly into the app else in LoginScreen
                         for (int i = 0; i < jsonArray.length(); i++) {
 
                             JSONObject temp = (JSONObject) jsonArray.get(i);
+                            Log.e("ob",temp.toString());
                             String AID = temp.getString("AID");
                             String name =  temp.getString("Name");
-                            Log.d("repo ", " name :" + temp.getString("Name") + " and store " + temp.getString("AID"));
+                            String password = temp.getString("Password");
 
+                            Log.e("repo ", " name :" + temp.getString("Name") + " and store " );
+
+                            sharePrefs.setLoggedIn(true);
                             sharePrefs.putAID(AID);
                             sharePrefs.putName(name);
 
                             id = sharePrefs.getAID();
                             Log.e("id", id);
+
+
                         }
+                        loginCallBack.AuthenticateUser();
                     }
 
                 } catch (JSONException e) {
