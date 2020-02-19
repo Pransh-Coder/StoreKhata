@@ -3,10 +3,10 @@ package com.store.storekhata.NetworkingStructure;
 import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
-import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -70,10 +70,11 @@ public class NetworkingCalls {
                     JSONObject jsonObject = new JSONObject(response);
                     if (jsonObject.getString("status").equals("true")) {
 
+                        loginCallBack.AuthenticateUser();
+
                         JSONArray jsonArray = jsonObject.getJSONArray("data");
                         Log.e("array" , jsonArray.toString());
 
-                        //For creating session
                          // to make the value true from false and in splashscreen we will check whether value is true or false if true directly into the app else in LoginScreen
                         for (int i = 0; i < jsonArray.length(); i++) {
 
@@ -94,7 +95,7 @@ public class NetworkingCalls {
 
 
                         }
-                        loginCallBack.AuthenticateUser();
+                        //loginCallBack.AuthenticateUser();
                     }
 
                 } catch (JSONException e) {
@@ -141,12 +142,13 @@ public class NetworkingCalls {
 
                             final Debt_Pojo debt_pojo = new Debt_Pojo();
 
+                            String total = jsonObject1.getString("Total");
                             debt_pojo.setDebtId(jsonObject1.getString("UID"));
                             debt_pojo.setName(jsonObject1.getString("Name"));
                             debt_pojo.setTotal(jsonObject1.getString("Total"));
 
                             debtPojoList.add(debt_pojo);
-                            //Log.d("repo_debit ", " name :" +name + " and store " +total + " UID:"+ UID);
+                            Log.d("repo_debit ", total) ;
 
                         }
                         recyclerView.setAdapter(recyclerAdapterDebit);
@@ -171,5 +173,30 @@ public class NetworkingCalls {
         };
         addToQueue(stringRequest);
         return debtPojoList;
+    }
+    public void addCustomer(final String Name, final String email, final String Addrs, final String phoneNo){
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, BASE_URL + "", new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Log.d("addCustomer response",response);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        }){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String,String> params = new HashMap<String, String>();
+                params.put("name",Name);
+                params.put("email",email);
+                params.put("phone",phoneNo);
+                params.put("address",Addrs);
+                return params;
+
+            }
+        };
+        addToQueue(stringRequest);
     }
 }

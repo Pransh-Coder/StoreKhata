@@ -17,6 +17,11 @@ public class SharePrefs {
     private SharedPreferences getUserPreference() {
         return context.getSharedPreferences(context.getPackageName(), Activity.MODE_PRIVATE);
     }
+
+    public void removeAllSP()
+    {
+        getUserPreference().edit().clear();
+    }
     // For creating session
     public Boolean isLoggedIn(){
         return getUserPreference().getBoolean("loggedin", false);

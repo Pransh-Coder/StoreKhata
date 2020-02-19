@@ -49,7 +49,7 @@ public class LoginFragment extends Fragment {
     }
 
     EditText name,shop_name,email,password;
-    Button signup;
+    Button login;
     String Name,Email,Password,ShopName;
 
     @Override
@@ -65,9 +65,9 @@ public class LoginFragment extends Fragment {
 
         email = rootview.findViewById(R.id.edt_email);
         password=rootview.findViewById(R.id.edt_password);
-        signup = rootview.findViewById(R.id.btnAuth);
+        login = rootview.findViewById(R.id.btnAuth);
 
-        signup.setOnClickListener(new View.OnClickListener() {
+        login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
