@@ -8,6 +8,9 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
 
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.store.storekhata.Login.LoginCallBack;
 import com.store.storekhata.Login.LoginFragment;
@@ -67,5 +70,33 @@ public class OnBoardingActivity extends AppCompatActivity implements LoginCallBa
         fragmentTransaction.replace(R.id.on_boarding_fragment_container,loginFragment);
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();*/
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.items, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.logout) {
+
+            //Toast.makeText(this, "clicked!", Toast.LENGTH_SHORT).show();
+            sharePrefs.removeAllSP();
+            LoginFragment loginFragment = new LoginFragment();
+            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.on_boarding_fragment_container,loginFragment);
+            fragmentTransaction.addToBackStack(null);
+            fragmentTransaction.commit();
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }
