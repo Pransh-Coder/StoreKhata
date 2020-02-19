@@ -16,9 +16,9 @@ import com.store.storekhata.NetworkingStructure.NetworkingCalls;
 import com.store.storekhata.R;
 
 public class AddCustomerFragment extends Fragment {
-    EditText Name,Email,Address,phone;
+    EditText Name,Email,Password,phone,StoreName;
     Button add_customer;
-    String name,email,address,phone_no;
+    String name,email,password,phone_no,store_name;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -35,9 +35,10 @@ public class AddCustomerFragment extends Fragment {
         final NetworkingCalls networkingCalls = new NetworkingCalls(getContext(),getActivity());
         Name = rootview.findViewById(R.id.name);
         Email = rootview.findViewById(R.id.email);
-        Address = rootview.findViewById(R.id.adress);
+        Password = rootview.findViewById(R.id.password);
         phone = rootview.findViewById(R.id.phone);
         add_customer= rootview.findViewById(R.id.add_customer);
+        StoreName = rootview.findViewById(R.id.store);
 
         add_customer.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -45,8 +46,9 @@ public class AddCustomerFragment extends Fragment {
 
                 name = Name.getText().toString();
                 email = Email.getText().toString();
-                address=Address.getText().toString();
+                password=Password.getText().toString();
                 phone_no=phone.getText().toString();
+                store_name = StoreName.getText().toString();
 
                 if(Name.getText().length()==0){
                     Name.setError("Name Feild Empty!");
@@ -54,11 +56,14 @@ public class AddCustomerFragment extends Fragment {
                 else if(Email.getText().length()==0){
                     Email.setError("Email Feild Empty!");
                 }
-                else if(Address.getText().length()==0){
-                    Address.setError("Address Feild Empty!");
+                else if(Password.getText().length()==0){
+                    Password.setError("Address Feild Empty!");
+                }
+                else if(StoreName.getText().length()==0){
+                    StoreName.setError("Store Name Feild Empty!");
                 }
                 else {
-                        networkingCalls.addCustomer(name,email,address,phone_no);
+                        networkingCalls.addCustomer(name,email,password,phone_no,store_name);
                 }
             }
         });

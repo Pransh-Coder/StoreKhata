@@ -18,6 +18,9 @@ import com.store.storekhata.R;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
+
+import java.util.HashSet;
 import java.util.List;
 
 public class RecyclerAdapterDebit extends RecyclerView.Adapter<RecyclerAdapterDebit.ViewHolder>{
@@ -27,12 +30,47 @@ public class RecyclerAdapterDebit extends RecyclerView.Adapter<RecyclerAdapterDe
     List<Debt_Pojo> debtPojoList = new ArrayList<>();
     Activity activity;
 
+    HashMap<String,String> stringHashSet = new HashMap<String, String>();
+
     ArrayList<Debt_Pojo> doubleList;
 
     public RecyclerAdapterDebit(Context context, List<Debt_Pojo> debtPojoList, Activity activity) {
         this.context = context;
-        this.debtPojoList = debtPojoList;
         this.activity = activity;
+        Log.d("loggy"," constructor called and list size is "+debtPojoList.size());
+
+        // make a set in java
+        HashSet<String> allQuinqueIds=new HashSet<>();
+
+        for(int i=0;i<debtPojoList.size();i++){
+            allQuinqueIds.add(debtPojoList.get(i).getUid());            //adding UID to hashset
+            Log.d("hashset",""+allQuinqueIds.size());
+        }
+        //        now we have all uniwue  ids in set
+        ArrayList<Debt_Pojo> correctList= new ArrayList<>();
+
+        for(String key:allQuinqueIds){
+            Log.d("values: allQuinqueIds",key);
+            Log.d("loggy"," -------------- changing ------key is "+key);
+            int any_useul_index=-1;
+            int totalAmountForThisUserWithThisId=0;
+
+            for(int i=0;i<debtPojoList.size();i++){
+                Log.d("loggy"," current id is "+debtPojoList.get(i).getUid()+" and key is "+key);
+                if(debtPojoList.get(i).getUid().equals(key)){
+                    Log.d("loggy"," its equal we are adding ");
+                    totalAmountForThisUserWithThisId+= Integer.parseInt(debtPojoList.get(i).getTotal());
+                    any_useul_index=i;
+                }
+            }
+            Debt_Pojo tempo= debtPojoList.get(any_useul_index);    // used for mapping      tempo obj of Debit_pojo class
+            tempo.setTotal(String.valueOf(totalAmountForThisUserWithThisId));
+            Log.d("loggy"," now for user with id "+tempo.getUid()+" we have debt of "+totalAmountForThisUserWithThisId);
+
+            correctList.add(tempo);             // After all calculations we have added sum into correctList so in constructor we can diectly assign the values of pojoList to debtPojoList as below
+        }
+        this.debtPojoList = correctList;
+        // now everythimg is weell and saved in correct list
     }
 
     @NonNull
@@ -51,36 +89,6 @@ public class RecyclerAdapterDebit extends RecyclerView.Adapter<RecyclerAdapterDe
 
         //Toast.makeText(context, ""+debtPojoList.get(1).getTotal(), Toast.LENGTH_SHORT).show();
 
-        for(int i=0;i<debtPojoList.size();i++){
-
-            //System.out.println(debtPojoList.get(i).getName());
-
-            doubleList = new ArrayList<>();
-            if (!doubleList.contains(debtPojoList.get(i).name)) {
-                for (int j = 0 ; j < doubleList.size() ; j++)
-                {
-                    if (doubleList.get(j).getName().equals(debtPojoList.get(i).getName())){
-                        Debt_Pojo debtPojo = new Debt_Pojo();
-                        debtPojo.setName(debtPojoList.get(i).getName());
-                        debtPojo.setDebtId(debtPojoList.get(i).getDebtId());
-                        debtPojo.setItemName(debtPojoList.get(i).getItemName());
-                        debtPojo.setPriceOfOne(debtPojoList.get(i).getPriceOfOne());
-                        debtPojo.setQuantity(debtPojoList.get(i).getQuantity());
-                        debtPojo.setUid(debtPojoList.get(i).getUid());
-                        debtPojo.setTotal(debtPojoList.get(i).getTotal()+doubleList.get(i).getTotal());
-                        doubleList.set(j,debtPojo);
-                    }
-                }
-
-            }
-            else{
-                doubleList.add(debtPojoList.get(i));
-            }
-
-        }
-        for (int j =0 ;j<doubleList.size();j++){
-            Log.e("abc","abc:"+doubleList.get(j).getTotal()+":"+doubleList.get(j).getName());
-        }
 
     }
 

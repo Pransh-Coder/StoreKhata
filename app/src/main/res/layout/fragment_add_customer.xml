@@ -72,12 +72,13 @@
         app:layout_constraintLeft_toLeftOf="parent"/>
 
     <EditText
-        android:id="@+id/adress"
+        android:id="@+id/password"
         android:padding="5dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Enter your Address"
+        android:hint="Enter your Password"
         android:layout_marginLeft="40dp"
+        android:inputType="textPassword"
         android:background="@drawable/custom_edittext"
         app:layout_constraintTop_toBottomOf="@+id/email"
         android:layout_marginTop="5dp"/>
@@ -99,7 +100,27 @@
         android:layout_marginLeft="40dp"
         android:hint="Enter your Phone Number "
         android:background="@drawable/custom_edittext"
-        app:layout_constraintTop_toBottomOf="@+id/adress"
+        app:layout_constraintTop_toBottomOf="@+id/password"
+        android:layout_marginTop="5dp"/>
+
+    <ImageView
+        android:id="@+id/storeimg"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_marginTop="5dp"
+        android:src="@drawable/plus"
+        app:layout_constraintTop_toBottomOf="@+id/phone"
+        app:layout_constraintLeft_toLeftOf="parent"/>
+
+    <EditText
+        android:id="@+id/store"
+        android:padding="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="40dp"
+        android:hint="Enter your Store Name "
+        android:background="@drawable/custom_edittext"
+        app:layout_constraintTop_toBottomOf="@+id/phone"
         android:layout_marginTop="5dp"/>
     <!-- <EditText
          android:id="@+id/q_name"

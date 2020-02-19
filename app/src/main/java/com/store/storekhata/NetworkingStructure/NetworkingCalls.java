@@ -134,7 +134,6 @@ public class NetworkingCalls {
 
                         JSONArray jsonArray = jsonObject.getJSONArray("Debt");
 
-                        RecyclerAdapterDebit recyclerAdapterDebit = new RecyclerAdapterDebit(context,debtPojoList,activity);        //To bring recyclerAdapter in scope to recyclerView.setAdapter(recyclerAdapterDebit);
 
                         for (int i = 0; i < jsonArray.length(); i++) {
 
@@ -143,7 +142,7 @@ public class NetworkingCalls {
                             final Debt_Pojo debt_pojo = new Debt_Pojo();
 
                             String total = jsonObject1.getString("Total");
-                            debt_pojo.setDebtId(jsonObject1.getString("UID"));
+                            debt_pojo.setUid(jsonObject1.getString("UID"));
                             debt_pojo.setName(jsonObject1.getString("Name"));
                             debt_pojo.setTotal(jsonObject1.getString("Total"));
 
@@ -151,6 +150,8 @@ public class NetworkingCalls {
                             Log.d("repo_debit ", total) ;
 
                         }
+//                        recyclerAdapterDebit.notifyDataSetChanged();
+                        RecyclerAdapterDebit recyclerAdapterDebit = new RecyclerAdapterDebit(context,giveMeFakeData.giveMeFakeData(),activity);        //To bring recyclerAdapter in scope to recyclerView.setAdapter(recyclerAdapterDebit);
                         recyclerView.setAdapter(recyclerAdapterDebit);
                     }
                 } catch (JSONException e) {
@@ -174,8 +175,8 @@ public class NetworkingCalls {
         addToQueue(stringRequest);
         return debtPojoList;
     }
-    public void addCustomer(final String Name, final String email, final String Addrs, final String phoneNo){
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, BASE_URL + "", new Response.Listener<String>() {
+    public void addCustomer(final String Name, final String email, final String password, final String phoneNo, final String storeName){
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, BASE_URL + "UserSignUp.php", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 Log.d("addCustomer response",response);
@@ -192,7 +193,9 @@ public class NetworkingCalls {
                 params.put("name",Name);
                 params.put("email",email);
                 params.put("phone",phoneNo);
-                params.put("address",Addrs);
+                params.put("password",password);
+                params.put("aid",sharePrefs.getAID());
+                params.put("store",storeName);
                 return params;
 
             }

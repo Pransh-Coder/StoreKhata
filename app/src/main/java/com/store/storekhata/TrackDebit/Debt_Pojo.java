@@ -10,6 +10,19 @@ public class Debt_Pojo {
      String name;
      String total;
 
+     public Debt_Pojo(){
+
+     }
+    public Debt_Pojo(String debtId, String itemName, String quantity, String priceOfOne, String uid, String name, String total) {
+        this.debtId = debtId;
+        this.itemName = itemName;
+        this.quantity = quantity;
+        this.priceOfOne = priceOfOne;
+        this.uid = uid;
+        this.name = name;
+        this.total = total;
+    }
+
     public String getTotal() {
         return total;
     }
@@ -17,6 +30,7 @@ public class Debt_Pojo {
     public void setTotal(String total) {
         this.total = total;
     }
+
 
     public String getDebtId() {
         return debtId;
