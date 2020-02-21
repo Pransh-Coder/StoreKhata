@@ -20,6 +20,7 @@ import com.store.storekhata.Login.SignupCallBack;
 import com.store.storekhata.SharePrefrence.SharePrefs;
 import com.store.storekhata.TrackDebit.Debt_Pojo;
 import com.store.storekhata.TrackDebit.RecyclerAdapterDebit;
+import com.store.storekhata.TrackDebit.RecyclerAdapterShowEachItem;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -37,10 +38,11 @@ public class NetworkingCalls {
 
     private Context context;
     private RequestQueue requestQueue;
-    private Activity activity;
+    private Activity activity;                      //??
     private SharePrefs sharePrefs;
 
     List<Debt_Pojo> debtPojoList = new ArrayList<>();
+    List<Debt_Pojo> debtPojoList2 = new ArrayList<>();
 
     String id;
 
@@ -211,22 +213,27 @@ public class NetworkingCalls {
 
                             String total = jsonObject1.getString("Total");
                             String debit_id=jsonObject1.getString("DebtId");
+
+                            debt_pojo.setQuantity(jsonObject1.getString("Quantity"));
+                            debt_pojo.setPriceOfOne(jsonObject1.getString("PriceOfOne"));
+                            debt_pojo.setItemName(jsonObject1.getString("ItemName"));
+
                             debt_pojo.setUid(jsonObject1.getString("UID"));
                             debt_pojo.setName(jsonObject1.getString("Name"));
                             debt_pojo.setTotal(jsonObject1.getString("Total"));
                             debt_pojo.setDebtId(jsonObject1.getString("DebtId"));
 
                             debtPojoList.add(debt_pojo);
+
                             Log.d("repo_debit ", total+ "Debit_id:"+ debit_id) ;
-
-                            Bundle bundle = new Bundle();
-                            bundle.putString("debit_id", debit_id);
-
 
                         }
 //                        recyclerAdapterDebit.notifyDataSetChanged();
                         RecyclerAdapterDebit recyclerAdapterDebit = new RecyclerAdapterDebit(context,/*giveMeFakeData.giveMeFakeData()*/debtPojoList,activity);        //To bring recyclerAdapter in scope to recyclerView.setAdapter(recyclerAdapterDebit);
                         recyclerView.setAdapter(recyclerAdapterDebit);
+
+                        /*RecyclerAdapterShowEachItem recyclerAdapterShowEachItem = new RecyclerAdapterShowEachItem(context,debtPojoList,activity);
+                        recyclerView.setAdapter(recyclerAdapterShowEachItem);*/
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -249,6 +256,73 @@ public class NetworkingCalls {
         addToQueue(stringRequest);
         return debtPojoList;
     }
+
+    public List<Debt_Pojo> showDebitDetails(final RecyclerView recyclerView, final String id) {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, BASE_URL + "GetAdminClients.php", new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Log.d("showPersonsDebit", response);
+
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    if (jsonObject.getString("status").equals("true")) {
+
+                        JSONArray jsonArray = jsonObject.getJSONArray("Debt");
+
+
+                        for (int i = 0; i < jsonArray.length(); i++) {
+
+                            JSONObject jsonObject1 = (JSONObject) jsonArray.get(i);
+
+                            final Debt_Pojo debt_pojo = new Debt_Pojo();
+
+                            String uid = jsonObject1.getString("UID");
+
+                            if(id.equals(uid)){
+                                debt_pojo.setQuantity(jsonObject1.getString("Quantity"));
+                                debt_pojo.setPriceOfOne(jsonObject1.getString("PriceOfOne"));
+                                debt_pojo.setItemName(jsonObject1.getString("ItemName"));
+                                debt_pojo.setTotal(jsonObject1.getString("Total"));
+                                debt_pojo.setDebtId(jsonObject1.getString("DebtId"));
+
+                                debtPojoList2.add(debt_pojo);
+
+                            }
+                            /*debt_pojo.setQuantity(jsonObject1.getString("Quantity"));
+                            debt_pojo.setPriceOfOne(jsonObject1.getString("PriceOfOne"));
+                            debt_pojo.setItemName(jsonObject1.getString("ItemName"));
+                            debt_pojo.setTotal(jsonObject1.getString("Total"));
+                            debt_pojo.setDebtId(jsonObject1.getString("DebtId"));
+
+                            debtPojoList2.add(debt_pojo);*/
+
+                        }
+//                        recyclerAdapterDebit.notifyDataSetChanged();
+                        RecyclerAdapterShowEachItem recyclerAdapterShowEachItem = new RecyclerAdapterShowEachItem(context,debtPojoList2,activity);
+                        recyclerView.setAdapter(recyclerAdapterShowEachItem);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.d("volleyError",error.toString());
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("aid", sharePrefs.getAID());
+                return params;
+            }
+        };
+        addToQueue(stringRequest);
+        return debtPojoList2;
+    }
+
     public void addCustomer(final String Name, final String email, final String password, final String phoneNo, final String storeName){
         StringRequest stringRequest = new StringRequest(Request.Method.POST, BASE_URL + "UserSignUp.php", new Response.Listener<String>() {
             @Override

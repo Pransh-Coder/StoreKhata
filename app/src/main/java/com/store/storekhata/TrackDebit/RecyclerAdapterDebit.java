@@ -34,9 +34,6 @@ public class RecyclerAdapterDebit extends RecyclerView.Adapter<RecyclerAdapterDe
     List<Debt_Pojo> debtPojoList = new ArrayList<>();
     Activity activity;
 
-    HashMap<String,String> stringHashSet = new HashMap<String, String>();
-
-    ArrayList<Debt_Pojo> doubleList;
 
     public RecyclerAdapterDebit(Context context, List<Debt_Pojo> debtPojoList, Activity activity) {
         this.context = context;
@@ -102,7 +99,7 @@ public class RecyclerAdapterDebit extends RecyclerView.Adapter<RecyclerAdapterDe
                 fragmentTransaction.replace(R.id.on_boarding_fragment_container,debitDetailFragment);
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
-                Bundle bundle=new Bundle();
+                Bundle bundle=new Bundle();             // send uid to DebitDetailFragment
                 bundle.putString("uid",uid);
                 debitDetailFragment.setArguments(bundle);
 
