@@ -64,6 +64,12 @@ public class AddCustomerFragment extends Fragment {
                 }
                 else {
                         networkingCalls.addCustomer(name,email,password,phone_no,store_name);
+                        Name.getText().clear();
+                        Email.getText().clear();
+                        Password.getText().clear();
+                        phone.getText().clear();
+                        StoreName.getText().clear();
+
                 }
             }
         });

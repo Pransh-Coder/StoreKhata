@@ -2,6 +2,7 @@ package com.store.storekhata.TrackDebit;
 
 import android.app.Activity;
 import android.content.Context;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,10 +12,13 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.store.storekhata.Login.LoginCallBack;
 import com.store.storekhata.R;
+import com.store.storekhata.onBoardingStructure.OnBoardingActivity;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -86,6 +90,24 @@ public class RecyclerAdapterDebit extends RecyclerView.Adapter<RecyclerAdapterDe
         holder.name.setText(debtPojoList.get(position).getName());
         holder.Rs.setText("Rs. "+ debtPojoList.get(position).getTotal());
         holder.cir_img.setText(debtPojoList.get(position).getName().substring(0,1));
+
+        final String uid = debtPojoList.get(position).getUid();
+        Toast.makeText(context, ""+uid, Toast.LENGTH_SHORT).show();
+
+        holder.constraintLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DebitDetailFragment debitDetailFragment = new DebitDetailFragment();
+                FragmentTransaction fragmentTransaction = ((OnBoardingActivity)context).getSupportFragmentManager().beginTransaction();
+                fragmentTransaction.replace(R.id.on_boarding_fragment_container,debitDetailFragment);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+                Bundle bundle=new Bundle();
+                bundle.putString("uid",uid);
+                debitDetailFragment.setArguments(bundle);
+
+            }
+        });
 
         //Toast.makeText(context, ""+debtPojoList.get(1).getTotal(), Toast.LENGTH_SHORT).show();
 

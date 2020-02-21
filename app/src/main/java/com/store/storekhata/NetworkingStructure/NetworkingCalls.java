@@ -2,6 +2,7 @@ package com.store.storekhata.NetworkingStructure;
 
 import android.app.Activity;
 import android.content.Context;
+import android.os.Bundle;
 import android.util.Log;
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -142,16 +143,22 @@ public class NetworkingCalls {
                             final Debt_Pojo debt_pojo = new Debt_Pojo();
 
                             String total = jsonObject1.getString("Total");
+                            String debit_id=jsonObject1.getString("DebtId");
                             debt_pojo.setUid(jsonObject1.getString("UID"));
                             debt_pojo.setName(jsonObject1.getString("Name"));
                             debt_pojo.setTotal(jsonObject1.getString("Total"));
+                            debt_pojo.setDebtId(jsonObject1.getString("DebtId"));
 
                             debtPojoList.add(debt_pojo);
-                            Log.d("repo_debit ", total) ;
+                            Log.d("repo_debit ", total+ "Debit_id:"+ debit_id) ;
+
+                            Bundle bundle = new Bundle();
+                            bundle.putString("debit_id", debit_id);
+
 
                         }
 //                        recyclerAdapterDebit.notifyDataSetChanged();
-                        RecyclerAdapterDebit recyclerAdapterDebit = new RecyclerAdapterDebit(context,giveMeFakeData.giveMeFakeData(),activity);        //To bring recyclerAdapter in scope to recyclerView.setAdapter(recyclerAdapterDebit);
+                        RecyclerAdapterDebit recyclerAdapterDebit = new RecyclerAdapterDebit(context,/*giveMeFakeData.giveMeFakeData()*/debtPojoList,activity);        //To bring recyclerAdapter in scope to recyclerView.setAdapter(recyclerAdapterDebit);
                         recyclerView.setAdapter(recyclerAdapterDebit);
                     }
                 } catch (JSONException e) {

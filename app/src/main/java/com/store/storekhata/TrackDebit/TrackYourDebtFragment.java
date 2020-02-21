@@ -42,7 +42,8 @@ public class TrackYourDebtFragment extends Fragment {
         recyclerView = rootView.findViewById(R.id.recyclerView);
         layoutManager=new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
-        networkingCalls.showPersonsDebit(recyclerView);
+
+        networkingCalls.showPersonsDebit(recyclerView);         //func call
 
         addbtn.setOnClickListener(new View.OnClickListener() {
             @Override
