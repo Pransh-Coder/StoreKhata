@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
@@ -52,6 +53,7 @@ public class LoginFragment extends Fragment {
 
     EditText name,shop_name,email,password;
     Button login;
+    TextView textlogin;
     String Name,Email,Password,ShopName;
 
     @Override
@@ -68,7 +70,7 @@ public class LoginFragment extends Fragment {
         email = rootview.findViewById(R.id.edt_email);
         password=rootview.findViewById(R.id.edt_password);
         login = rootview.findViewById(R.id.btnAuth);
-
+        textlogin = rootview.findViewById(R.id.textlogin);
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -94,6 +96,17 @@ public class LoginFragment extends Fragment {
                     startActivity(intent);*/
                 }
 
+            }
+        });
+
+        textlogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SignUpFragment signUpFragment = new SignUpFragment();
+                FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+                fragmentTransaction.replace(R.id.on_boarding_fragment_container,signUpFragment);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
             }
         });
         return rootview;

@@ -7,19 +7,21 @@
     android:background="#2a2f42"
     android:id="@+id/linearLayout"
     android:orientation="vertical">
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:orientation="vertical"
             android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/sign"
+                android:id="@+id/signUp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Log In"
+                android:text="Sign Up"
                 android:textSize="30sp"
                 android:textColor="#D4DFE2"
                 android:textAlignment="center"
@@ -30,7 +32,7 @@
                 android:id="@+id/txt_who"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Admin Login"
+                android:text="Admin Sign Up"
                 android:textSize="20dp"
                 android:textColor="#D4DFE2"
                 android:layout_gravity="center"
@@ -44,6 +46,7 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
+
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_marginEnd="20dp"
@@ -77,6 +80,21 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
                 android:background="@drawable/border"
+                android:hint="Name"
+                android:drawablePadding="10dp"
+                android:textColorHint="#565F7E"
+                android:drawableStart="@drawable/ic_person_black_24dp"
+                android:drawableLeft="@drawable/ic_person_black_24dp"
+                android:textColor="#D4DFE2"
+                android:inputType="textEmailAddress"
+                android:padding="15dp"
+                android:id="@+id/nam" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:background="@drawable/border"
                 android:hint="Email"
                 android:drawablePadding="10dp"
                 android:textColorHint="#565F7E"
@@ -85,7 +103,7 @@
                 android:textColor="#D4DFE2"
                 android:inputType="textEmailAddress"
                 android:padding="15dp"
-                android:id="@+id/edt_email" />
+                android:id="@+id/ema" />
 
             <EditText
                 android:layout_width="match_parent"
@@ -99,29 +117,44 @@
                 android:textColor="#D4DFE2"
                 android:inputType="textPassword"
                 android:padding="15dp"
-                android:id="@+id/edt_password" />
+                android:id="@+id/pass" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:background="@drawable/border"
+                android:hint="Store Name"
+                android:drawablePadding="10dp"
+                android:textColorHint="#565F7E"
+                android:drawableLeft="@drawable/ic_add_circle_black_24dp"
+                android:textColor="#D4DFE2"
+                android:padding="15dp"
+                android:id="@+id/storeNam" />
 
             <Button
                 android:layout_width="150dp"
-                android:id="@+id/btnAuth"
+                android:id="@+id/btnSignUp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:background="@drawable/custom_button"
-                android:text="Login"
+                android:text="Sign Up"
                 android:layout_marginTop="10dp"
                 android:textColor="@android:color/white"
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/textlogin"
+                android:id="@+id/textButton"
+                android:textStyle="bold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Don't have an Account Signup!"
-                android:textColor="#fff"
+                android:text="Already Signup then Login"
+                android:background="@null"
                 android:layout_marginTop="10dp"
+                android:textColor="#fff"
+                android:paddingBottom="10dp"
                 android:layout_gravity="center"/>
         </LinearLayout>
-
 
     </ScrollView>
 

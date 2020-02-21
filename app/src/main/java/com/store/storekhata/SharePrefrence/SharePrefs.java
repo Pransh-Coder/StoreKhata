@@ -20,7 +20,8 @@ public class SharePrefs {
 
     public void removeAllSP()
     {
-        getUserPreference().edit().clear();
+        getUserPreference().edit().clear().commit();
+
     }
     // For creating session
     public Boolean isLoggedIn(){

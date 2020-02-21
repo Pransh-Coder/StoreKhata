@@ -14,11 +14,12 @@ import android.widget.Toast;
 
 import com.store.storekhata.Login.LoginCallBack;
 import com.store.storekhata.Login.LoginFragment;
+import com.store.storekhata.Login.SignupCallBack;
 import com.store.storekhata.R;
 import com.store.storekhata.SharePrefrence.SharePrefs;
 import com.store.storekhata.TrackDebit.TrackYourDebtFragment;
 
-public class OnBoardingActivity extends AppCompatActivity implements LoginCallBack {
+public class OnBoardingActivity extends AppCompatActivity implements LoginCallBack, SignupCallBack {
 
     SharePrefs sharePrefs;
     @Override
@@ -98,5 +99,14 @@ public class OnBoardingActivity extends AppCompatActivity implements LoginCallBa
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void AuthenticateSignup() {
+        LoginFragment loginFragment = new LoginFragment();
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.on_boarding_fragment_container,loginFragment);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
     }
 }

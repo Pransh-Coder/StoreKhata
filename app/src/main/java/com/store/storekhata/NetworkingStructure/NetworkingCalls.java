@@ -16,6 +16,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.store.storekhata.Login.LoginCallBack;
+import com.store.storekhata.Login.SignupCallBack;
 import com.store.storekhata.SharePrefrence.SharePrefs;
 import com.store.storekhata.TrackDebit.Debt_Pojo;
 import com.store.storekhata.TrackDebit.RecyclerAdapterDebit;
@@ -44,6 +45,7 @@ public class NetworkingCalls {
     String id;
 
     LoginCallBack loginCallBack;
+    SignupCallBack signupCallBack;
 
     public NetworkingCalls(Context context, Activity activity) {
         this.context = context;
@@ -51,6 +53,7 @@ public class NetworkingCalls {
         requestQueue = Volley.newRequestQueue(this.context);
         sharePrefs = new SharePrefs(context);
         loginCallBack = (LoginCallBack) activity;
+        signupCallBack = (SignupCallBack) activity;     //??? why we do this
     }
 
     private void addToQueue(StringRequest request) {
@@ -59,6 +62,70 @@ public class NetworkingCalls {
                 0,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         requestQueue.add(request);
+    }
+
+    public void adminSignup(final String email, final String password, final String name, final String storename) {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, BASE_URL + "AdminSignup.php", new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Log.e("ResponseSignup", response);
+               /* try {
+                    Log.e("ResponseSignup", response);
+                    JSONObject jsonObject = new JSONObject(response);
+                    if (jsonObject.getString("status").equals("true")) {
+
+                        signupCallBack.AuthenticateSignup();
+
+                        JSONArray jsonArray = jsonObject.getJSONArray("data");
+                        Log.e("array" , jsonArray.toString());
+
+                        // to make the value true from false and in splashscreen we will check whether value is true or false if true directly into the app else in LoginScreen
+                        for (int i = 0; i < jsonArray.length(); i++) {
+
+                            JSONObject temp = (JSONObject) jsonArray.get(i);
+                            Log.e("ob",temp.toString());
+                            String AID = temp.getString("AID");
+                            String name =  temp.getString("Name");
+                            String password = temp.getString("Password");
+
+                            Log.e("repo ", " name :" + temp.getString("Name") + " and store " );
+
+                            sharePrefs.setLoggedIn(true);
+                            sharePrefs.putAID(AID);
+                            sharePrefs.putName(name);
+
+                            id = sharePrefs.getAID();
+                            Log.e("id", id);
+
+
+                        }
+                        //loginCallBack.AuthenticateUser();
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }*/
+
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e("Error Login", error.toString());
+
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("email", email);
+                params.put("password", password);
+                params.put("name", name);
+                params.put("store", storename);
+                return params;
+            }
+        };
+        addToQueue(stringRequest);
     }
 
     public void adminLogin(final String email, final String password) {
