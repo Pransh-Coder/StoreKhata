@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -42,7 +43,7 @@ import java.util.Map;
 public class LoginFragment extends Fragment {
 
     RequestQueue requestQueue;
-
+    int flag=0;
     SharePrefs sharePrefs;
     NetworkingCalls networkingCalls;
     @Override
@@ -52,8 +53,9 @@ public class LoginFragment extends Fragment {
     }
 
     EditText name,shop_name,email,password;
+    LinearLayout userLinear,adminLinear;
     Button login;
-    TextView textlogin;
+    TextView textlogin,txt_who;
     String Name,Email,Password,ShopName;
 
     @Override
@@ -71,6 +73,26 @@ public class LoginFragment extends Fragment {
         password=rootview.findViewById(R.id.edt_password);
         login = rootview.findViewById(R.id.btnAuth);
         textlogin = rootview.findViewById(R.id.textlogin);
+        userLinear= rootview.findViewById(R.id.userLinear);
+        adminLinear = rootview.findViewById(R.id.adminLinear);
+        txt_who= rootview.findViewById(R.id.txt_who);
+
+        userLinear.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                txt_who.setText("User Login");
+                flag=1;
+            }
+        });
+
+        adminLinear.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                txt_who.setText("Admin Login");
+                flag=2;
+            }
+        });
+
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -91,7 +113,16 @@ public class LoginFragment extends Fragment {
                 }
                 else
                 {
-                    networkingCalls.adminLogin(Email,Password);
+                    if(flag==2){
+
+                        networkingCalls.adminLogin(Email,Password);
+                    }
+                    else if(flag==1){
+                        networkingCalls.userLogin(Email,Password);
+                    }
+                    else {
+                        networkingCalls.adminLogin(Email,Password);
+                    }
                     /*Intent intent = new Intent(getApplicationContext(),Login.class);
                     startActivity(intent);*/
                 }

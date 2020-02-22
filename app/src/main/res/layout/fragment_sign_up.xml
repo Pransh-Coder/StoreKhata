@@ -38,29 +38,28 @@
                 android:layout_gravity="center"
                 android:layout_marginTop="30dp"
                 android:layout_marginBottom="20dp"/>
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
-                <RelativeLayout
+
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
                     <LinearLayout
+                        android:id="@+id/adminLinear"
                         android:layout_width="wrap_content"
-                        android:layout_marginEnd="20dp"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
-                        android:layout_centerHorizontal="true"
-                        android:layout_marginRight="20dp">
+                        app:layout_constraintRight_toLeftOf="@+id/userLinear"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
 
                         <de.hdodenhof.circleimageview.CircleImageView
                             android:id="@+id/profile_image_admin"
                             android:layout_width="96dp"
                             android:layout_height="96dp"
-                            android:layout_gravity="center"
-                            android:foregroundGravity="center"
                             android:src="@drawable/admin"
                             app:civ_border_color="#FFFFFF"
                             app:civ_border_width="2dp" />
@@ -71,8 +70,38 @@
                             android:text="Admin"
                             android:textAlignment="center"
                             android:textColor="#FFFFFF"/>
+
                     </LinearLayout>
-                </RelativeLayout>
+
+                    <LinearLayout
+                        android:id="@+id/userLinear"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintLeft_toRightOf="@+id/adminLinear"
+                        app:layout_constraintTop_toTopOf="parent"
+                        android:orientation="vertical">
+
+                        <de.hdodenhof.circleimageview.CircleImageView
+                            android:id="@+id/profile_image_user"
+                            android:layout_width="96dp"
+                            android:layout_height="96dp"
+                            android:src="@drawable/group"
+                            app:civ_border_color="#FFFFFF"
+                            app:civ_border_width="2dp" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="User"
+                            android:textAlignment="center"
+                            android:gravity=""
+                            android:textColor="#FFFFFF"/>
+
+                    </LinearLayout>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
             </LinearLayout>
 
             <EditText
@@ -118,6 +147,21 @@
                 android:inputType="textPassword"
                 android:padding="15dp"
                 android:id="@+id/pass" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:background="@drawable/border"
+                android:hint="Phone"
+                android:drawablePadding="10dp"
+                android:textColorHint="#565F7E"
+                android:drawableLeft="@drawable/ic_phone_grey_24dp"
+                android:textColor="#D4DFE2"
+                android:inputType="phone"
+                android:visibility="gone"
+                android:padding="15dp"
+                android:id="@+id/mobileNo" />
 
             <EditText
                 android:layout_width="match_parent"

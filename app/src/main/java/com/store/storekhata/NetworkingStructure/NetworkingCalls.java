@@ -350,4 +350,131 @@ public class NetworkingCalls {
         };
         addToQueue(stringRequest);
     }
+
+    public void userLogin(final String email, final String password) {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, BASE_URL + "UserLogin.php", new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Log.e("userResponse", response);
+               /* try {
+                    Log.e("Response", response);
+                    JSONObject jsonObject = new JSONObject(response);
+                    if (jsonObject.getString("status").equals("true")) {
+
+                        loginCallBack.AuthenticateUser();
+
+                        JSONArray jsonArray = jsonObject.getJSONArray("data");
+                        Log.e("array" , jsonArray.toString());
+
+                        // to make the value true from false and in splashscreen we will check whether value is true or false if true directly into the app else in LoginScreen
+                        for (int i = 0; i < jsonArray.length(); i++) {
+
+                            JSONObject temp = (JSONObject) jsonArray.get(i);
+                            Log.e("ob",temp.toString());
+                            String AID = temp.getString("AID");
+                            String name =  temp.getString("Name");
+                            String password = temp.getString("Password");
+
+                            Log.e("repo ", " name :" + temp.getString("Name") + " and store " );
+
+                            sharePrefs.setLoggedIn(true);
+                            sharePrefs.putAID(AID);
+                            sharePrefs.putName(name);
+
+                            id = sharePrefs.getAID();
+                            Log.e("id", id);
+
+
+                        }
+                        //loginCallBack.AuthenticateUser();
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }*/
+
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e("Error Login", error.toString());
+
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("email", email);
+                params.put("password", password);
+                return params;
+            }
+        };
+        addToQueue(stringRequest);
+    }
+
+    public void userSignup(final String phoneNo, final String email, final String password, final String name, final String shopName) {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, BASE_URL + "UserSignUp.php", new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Log.e("userResponseSignup", response);
+               /* try {
+                    Log.e("ResponseSignup", response);
+                    JSONObject jsonObject = new JSONObject(response);
+                    if (jsonObject.getString("status").equals("true")) {
+
+                        signupCallBack.AuthenticateSignup();
+
+                        JSONArray jsonArray = jsonObject.getJSONArray("data");
+                        Log.e("array" , jsonArray.toString());
+
+                        // to make the value true from false and in splashscreen we will check whether value is true or false if true directly into the app else in LoginScreen
+                        for (int i = 0; i < jsonArray.length(); i++) {
+
+                            JSONObject temp = (JSONObject) jsonArray.get(i);
+                            Log.e("ob",temp.toString());
+                            String AID = temp.getString("AID");
+                            String name =  temp.getString("Name");
+                            String password = temp.getString("Password");
+
+                            Log.e("repo ", " name :" + temp.getString("Name") + " and store " );
+
+                            sharePrefs.setLoggedIn(true);
+                            sharePrefs.putAID(AID);
+                            sharePrefs.putName(name);
+
+                            id = sharePrefs.getAID();
+                            Log.e("id", id);
+
+
+                        }
+                        //loginCallBack.AuthenticateUser();
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }*/
+
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e("Error Login", error.toString());
+
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("email", email);
+                params.put("password", password);
+                params.put("name", name);
+                params.put("store", shopName);
+                params.put("phone", phoneNo);
+                return params;
+            }
+        };
+        addToQueue(stringRequest);
+    }
 }

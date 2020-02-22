@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.store.storekhata.NetworkingStructure.NetworkingCalls;
@@ -21,10 +22,12 @@ import com.store.storekhata.R;
 
 public class SignUpFragment extends Fragment {
 
-    EditText Name,Email,Password,StoreName;
-    String name,email,password,shopName;
+    EditText Name,Email,Password,StoreName,mobileNo;
+    String name,email,password,shopName,mobilenum;
     Button Signup;
-    TextView textButton;
+    TextView textButton,txt_who;
+    int flag=0;
+    LinearLayout userLinear,adminLinear;
     NetworkingCalls networkingCalls;
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -46,6 +49,28 @@ public class SignUpFragment extends Fragment {
         StoreName = rootview.findViewById(R.id.storeNam);
         textButton=rootview.findViewById(R.id.textButton);
         Signup = rootview.findViewById(R.id.btnSignUp);
+        userLinear= rootview.findViewById(R.id.userLinear);
+        adminLinear = rootview.findViewById(R.id.adminLinear);
+        txt_who= rootview.findViewById(R.id.txt_who);
+        mobileNo = rootview.findViewById(R.id.mobileNo);
+
+        userLinear.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                txt_who.setText("User Login");
+                flag=1;
+                mobileNo.setVisibility(View.VISIBLE);
+            }
+        });
+
+        adminLinear.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                txt_who.setText("Admin Login");
+                mobileNo.setVisibility(View.GONE);
+                flag=2;
+            }
+        });
 
         Signup.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -55,6 +80,7 @@ public class SignUpFragment extends Fragment {
                 password = Password.getText().toString();
                 shopName = StoreName.getText().toString();
                 name = Name.getText().toString();
+                mobilenum=mobileNo.getText().toString();
 
                 if(Email.getText().toString().length()==0)
                 {
@@ -72,11 +98,21 @@ public class SignUpFragment extends Fragment {
                 else if(StoreName.getText().toString().length()==0){
                     StoreName.setError("Store Name feild is empty!");
                 }
+                else if(mobileNo.getText().length()==0){
+                    mobileNo.setError("Mobile Number feild empty!");
+                }
                 else
                 {
-                    networkingCalls.adminSignup(email,password,name,shopName);
-                    /*Intent intent = new Intent(getApplicationContext(),Login.class);
-                    startActivity(intent);*/
+                    if(flag==2){
+
+                        networkingCalls.adminSignup(email,password,name,shopName);
+                    }
+                    else if(flag==1){
+                        networkingCalls.userSignup(email,password,name,shopName,mobilenum);
+                    }
+                    else {
+                        networkingCalls.adminSignup(email,password,name,shopName);
+                    }
                 }
             }
         });
