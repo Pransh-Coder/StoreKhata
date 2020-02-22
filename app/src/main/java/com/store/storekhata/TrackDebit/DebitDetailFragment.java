@@ -40,7 +40,8 @@ public class DebitDetailFragment extends Fragment {
         View rootview= inflater.inflate(R.layout.fragment_debit_detail, container, false);
         networkingCalls = new NetworkingCalls(getContext(),getActivity());
 
-        if (getArguments() != null) {                                               //getting value from RecyclerAdapterDebit for Admin  and for userLogin sending uid directly from loginCallback Interface
+        //For UserLogin - uid is sent from networking class itself using this interface loginCallBack.Authenticateuser(UID);
+        if (getArguments() != null) {    //for AdminLogin - getting value from RecyclerAdapterDebit
             uid = getArguments().getString("uid","");
             Toast.makeText(getContext(), ""+uid, Toast.LENGTH_SHORT).show();
         }

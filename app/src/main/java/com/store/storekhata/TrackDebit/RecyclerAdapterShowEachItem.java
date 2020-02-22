@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.store.storekhata.NetworkingStructure.NetworkingCalls;
 import com.store.storekhata.R;
 
 import java.util.ArrayList;
@@ -23,6 +24,8 @@ public class RecyclerAdapterShowEachItem extends RecyclerView.Adapter<RecyclerAd
     Context context;
     List<Debt_Pojo> debtPojoList = new ArrayList<>();
     Activity activity;
+    NetworkingCalls networkingCalls;
+    String debitId;
 
     public RecyclerAdapterShowEachItem(Context context, List<Debt_Pojo> debtPojoList, Activity activity) {
         this.context = context;
@@ -46,11 +49,16 @@ public class RecyclerAdapterShowEachItem extends RecyclerView.Adapter<RecyclerAd
         holder.PriceOfOne.append(" Rs."+debtPojoList.get(position).getPriceOfOne());
         holder.Total.append(" Rs."+debtPojoList.get(position).getTotal());
 
+        networkingCalls = new NetworkingCalls(context,activity);
+        debitId = debtPojoList.get(position).getDebtId();
+
         holder.deleteItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {                //send debitI
 
+                networkingCalls.deleteItem(debitId);
                 holder.constraintLayout.setVisibility(View.GONE);
+
                 Toast.makeText(context, "Deleted ! Item BUT NO API Attached", Toast.LENGTH_SHORT).show();
             }
         });

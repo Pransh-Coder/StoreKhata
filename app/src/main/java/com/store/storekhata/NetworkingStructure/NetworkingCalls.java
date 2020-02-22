@@ -480,4 +480,26 @@ public class NetworkingCalls {
         };
         addToQueue(stringRequest);
     }
+
+    public void deleteItem(final String debitId) {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, BASE_URL + "removeDebt.php", new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Log.d("deleteItem",response);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        }){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String,String> map = new HashMap<String, String>();
+                map.put("debtId",debitId);
+                return map;
+            }
+        };
+        addToQueue(stringRequest);
+    }
 }
