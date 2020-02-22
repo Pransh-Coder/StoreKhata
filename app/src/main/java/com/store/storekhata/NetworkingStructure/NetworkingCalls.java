@@ -18,6 +18,7 @@ import com.android.volley.toolbox.Volley;
 import com.store.storekhata.Login.LoginCallBack;
 import com.store.storekhata.Login.SignupCallBack;
 import com.store.storekhata.SharePrefrence.SharePrefs;
+import com.store.storekhata.SharePrefrence.UserSharedPrefs;
 import com.store.storekhata.TrackDebit.Debt_Pojo;
 import com.store.storekhata.TrackDebit.RecyclerAdapterDebit;
 import com.store.storekhata.TrackDebit.RecyclerAdapterShowEachItem;
@@ -40,6 +41,7 @@ public class NetworkingCalls {
     private RequestQueue requestQueue;
     private Activity activity;                      //??
     private SharePrefs sharePrefs;
+    private UserSharedPrefs userSharedPrefs;
 
     List<Debt_Pojo> debtPojoList = new ArrayList<>();
     List<Debt_Pojo> debtPojoList2 = new ArrayList<>();
@@ -54,6 +56,7 @@ public class NetworkingCalls {
         this.activity = activity;
         requestQueue = Volley.newRequestQueue(this.context);
         sharePrefs = new SharePrefs(context);
+        userSharedPrefs= new UserSharedPrefs(context);
         loginCallBack = (LoginCallBack) activity;
         signupCallBack = (SignupCallBack) activity;     //??? why we do this
     }
@@ -70,8 +73,9 @@ public class NetworkingCalls {
         StringRequest stringRequest = new StringRequest(Request.Method.POST, BASE_URL + "AdminSignup.php", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                Log.e("ResponseSignup", response);
-               /* try {
+                Log.e("adminResponseSignup", response);
+
+                try {
                     Log.e("ResponseSignup", response);
                     JSONObject jsonObject = new JSONObject(response);
                     if (jsonObject.getString("status").equals("true")) {
@@ -92,13 +96,13 @@ public class NetworkingCalls {
 
                             Log.e("repo ", " name :" + temp.getString("Name") + " and store " );
 
-                            sharePrefs.setLoggedIn(true);
+                      /*     sharePrefs.setLoggedIn(true);
                             sharePrefs.putAID(AID);
                             sharePrefs.putName(name);
 
                             id = sharePrefs.getAID();
                             Log.e("id", id);
-
+*/
 
                         }
                         //loginCallBack.AuthenticateUser();
@@ -106,7 +110,7 @@ public class NetworkingCalls {
 
                 } catch (JSONException e) {
                     e.printStackTrace();
-                }*/
+                }
 
 
             }
@@ -140,7 +144,7 @@ public class NetworkingCalls {
                     JSONObject jsonObject = new JSONObject(response);
                     if (jsonObject.getString("status").equals("true")) {
 
-                        loginCallBack.AuthenticateUser();
+                        loginCallBack.AuthenticateAdmin();
 
                         JSONArray jsonArray = jsonObject.getJSONArray("data");
                         Log.e("array" , jsonArray.toString());
@@ -256,7 +260,7 @@ public class NetworkingCalls {
         addToQueue(stringRequest);
         return debtPojoList;
     }
-
+//Open Debit Details of Paticular Person
     public List<Debt_Pojo> showDebitDetails(final RecyclerView recyclerView, final String id) {
         StringRequest stringRequest = new StringRequest(Request.Method.POST, BASE_URL + "GetAdminClients.php", new Response.Listener<String>() {
             @Override
@@ -278,7 +282,7 @@ public class NetworkingCalls {
 
                             String uid = jsonObject1.getString("UID");
 
-                            if(id.equals(uid)){
+                            if(id.equals(uid)){                                                     // This id is coming from DebitDetailFragment
                                 debt_pojo.setQuantity(jsonObject1.getString("Quantity"));
                                 debt_pojo.setPriceOfOne(jsonObject1.getString("PriceOfOne"));
                                 debt_pojo.setItemName(jsonObject1.getString("ItemName"));
@@ -356,13 +360,12 @@ public class NetworkingCalls {
             @Override
             public void onResponse(String response) {
                 Log.e("userResponse", response);
-               /* try {
+                try {
                     Log.e("Response", response);
                     JSONObject jsonObject = new JSONObject(response);
                     if (jsonObject.getString("status").equals("true")) {
 
-                        loginCallBack.AuthenticateUser();
-
+                        String AID, UID = "";
                         JSONArray jsonArray = jsonObject.getJSONArray("data");
                         Log.e("array" , jsonArray.toString());
 
@@ -371,27 +374,27 @@ public class NetworkingCalls {
 
                             JSONObject temp = (JSONObject) jsonArray.get(i);
                             Log.e("ob",temp.toString());
-                            String AID = temp.getString("AID");
-                            String name =  temp.getString("Name");
-                            String password = temp.getString("Password");
+                            AID = temp.getString("AID");
+                            UID =  temp.getString("UID");
 
-                            Log.e("repo ", " name :" + temp.getString("Name") + " and store " );
+                            Log.e("userLogin ",AID+ " "+ UID );
 
-                            sharePrefs.setLoggedIn(true);
-                            sharePrefs.putAID(AID);
-                            sharePrefs.putName(name);
+                            userSharedPrefs.setLoggedInUser(true);
+                            userSharedPrefs.putAID_forUserLogin(AID);
+                            userSharedPrefs.putUID_forUserLogin(UID);
 
-                            id = sharePrefs.getAID();
-                            Log.e("id", id);
+                            id = userSharedPrefs.getAID_forUserLogin();
+                            Log.e("Login_id", id);
 
 
                         }
+                        loginCallBack.Authenticateuser(UID);            // sending UID to logincallback interface of function Authenticateuser(UID)
                         //loginCallBack.AuthenticateUser();
                     }
 
                 } catch (JSONException e) {
                     e.printStackTrace();
-                }*/
+                }
 
 
             }
@@ -418,7 +421,7 @@ public class NetworkingCalls {
             @Override
             public void onResponse(String response) {
                 Log.e("userResponseSignup", response);
-               /* try {
+                try {
                     Log.e("ResponseSignup", response);
                     JSONObject jsonObject = new JSONObject(response);
                     if (jsonObject.getString("status").equals("true")) {
@@ -439,12 +442,12 @@ public class NetworkingCalls {
 
                             Log.e("repo ", " name :" + temp.getString("Name") + " and store " );
 
-                            sharePrefs.setLoggedIn(true);
+                          /*  sharePrefs.setLoggedIn(true);
                             sharePrefs.putAID(AID);
                             sharePrefs.putName(name);
 
                             id = sharePrefs.getAID();
-                            Log.e("id", id);
+                            Log.e("id", id);*/
 
 
                         }
@@ -453,7 +456,7 @@ public class NetworkingCalls {
 
                 } catch (JSONException e) {
                     e.printStackTrace();
-                }*/
+                }
 
 
             }

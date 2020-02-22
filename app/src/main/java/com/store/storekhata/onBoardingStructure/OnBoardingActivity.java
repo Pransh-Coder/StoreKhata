@@ -17,17 +17,21 @@ import com.store.storekhata.Login.LoginFragment;
 import com.store.storekhata.Login.SignupCallBack;
 import com.store.storekhata.R;
 import com.store.storekhata.SharePrefrence.SharePrefs;
+import com.store.storekhata.SharePrefrence.UserSharedPrefs;
+import com.store.storekhata.TrackDebit.DebitDetailFragment;
 import com.store.storekhata.TrackDebit.TrackYourDebtFragment;
 
 public class OnBoardingActivity extends AppCompatActivity implements LoginCallBack, SignupCallBack {
 
     SharePrefs sharePrefs;
+    UserSharedPrefs userSharedPrefs;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_on_boarding);
 
         sharePrefs = new SharePrefs(this);
+        userSharedPrefs = new UserSharedPrefs(this);
         Toolbar toolbar = findViewById(R.id.onBoardingToolbar);
         setSupportActionBar(toolbar);
 
@@ -42,6 +46,13 @@ public class OnBoardingActivity extends AppCompatActivity implements LoginCallBa
             transaction.addToBackStack(null);
             transaction.commit();
         }
+        else if(userSharedPrefs.isLoggedInUser()){
+            DebitDetailFragment fragment = new DebitDetailFragment();
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            transaction.replace(R.id.on_boarding_fragment_container, fragment);
+            transaction.addToBackStack(null);
+            transaction.commit();
+        }
         else {
             LoginFragment fragment = new LoginFragment();
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
@@ -49,6 +60,21 @@ public class OnBoardingActivity extends AppCompatActivity implements LoginCallBa
             transaction.addToBackStack(null);
             transaction.commit();
         }
+
+        /*if(userSharedPrefs.isLoggedInUser()){
+            DebitDetailFragment fragment = new DebitDetailFragment();
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            transaction.replace(R.id.on_boarding_fragment_container, fragment);
+            transaction.addToBackStack(null);
+            transaction.commit();
+        }
+        else {
+            LoginFragment fragment = new LoginFragment();
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            transaction.replace(R.id.on_boarding_fragment_container, fragment);
+            transaction.addToBackStack(null);
+            transaction.commit();
+        }*/
     }
 
     @Override
@@ -58,13 +84,14 @@ public class OnBoardingActivity extends AppCompatActivity implements LoginCallBa
     }
 
     @Override
-    public void AuthenticateUser() {
+    public void AuthenticateAdmin() {
 
         TrackYourDebtFragment fragment = new TrackYourDebtFragment();
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.on_boarding_fragment_container, fragment);
         transaction.addToBackStack(null);
         transaction.commit();
+        ;
 
        /* LoginFragment loginFragment = new LoginFragment();
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
@@ -72,6 +99,20 @@ public class OnBoardingActivity extends AppCompatActivity implements LoginCallBa
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();*/
     }
+
+    @Override
+    public void Authenticateuser(String UID) {
+
+        DebitDetailFragment fragment = new DebitDetailFragment();
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.on_boarding_fragment_container, fragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
+        Bundle bundle = new Bundle();
+        bundle.putString("uid" , UID);
+        fragment.setArguments(bundle);
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -91,6 +132,7 @@ public class OnBoardingActivity extends AppCompatActivity implements LoginCallBa
 
             //Toast.makeText(this, "clicked!", Toast.LENGTH_SHORT).show();
             sharePrefs.removeAllSP();
+            userSharedPrefs.removeAllSharedPref();
             LoginFragment loginFragment = new LoginFragment();
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.on_boarding_fragment_container,loginFragment);

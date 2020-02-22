@@ -48,9 +48,9 @@ public class RecyclerAdapterShowEachItem extends RecyclerView.Adapter<RecyclerAd
 
         holder.deleteItem.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(View view) {                //send debitI
 
-               holder.constraintLayout.setVisibility(View.GONE);
+                holder.constraintLayout.setVisibility(View.GONE);
                 Toast.makeText(context, "Deleted ! Item BUT NO API Attached", Toast.LENGTH_SHORT).show();
             }
         });
