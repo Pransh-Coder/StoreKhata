@@ -55,8 +55,8 @@ public class ItemsHistoryFragment extends Fragment {
         String UID = userSharedPrefs.getUID_forUserLogin();
         String AID = userSharedPrefs.getAID_forUserLogin();
 
-        Toast.makeText(getContext(), ""+UID +" home " + AID, Toast.LENGTH_SHORT).show();
-        networkingCalls.ItemsHistory(uid,AID,recyclerView);
+        Toast.makeText(getContext(), "uid: "+UID +" & aid: " + AID, Toast.LENGTH_SHORT).show();
+        networkingCalls.ItemsHistory(UID,AID,recyclerView);
 
 
         return rootview;

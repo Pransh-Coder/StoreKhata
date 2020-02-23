@@ -79,10 +79,9 @@ public class NetworkingCalls {
         StringRequest stringRequest = new StringRequest(Request.Method.POST, BASE_URL + "AdminSignup.php", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                Log.e("adminResponseSignup", response);
 
                 try {
-                    Log.e("ResponseSignup", response);
+                    Log.e("responseSignup", response);
                     JSONObject jsonObject = new JSONObject(response);
                     if (jsonObject.getString("status").equals("true")) {
 

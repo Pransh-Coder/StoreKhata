@@ -58,6 +58,10 @@ public class RecyclerAdapterShowEachItem extends RecyclerView.Adapter<RecyclerAd
         userSharedPrefs= new UserSharedPrefs(context);
         sharePrefs = new SharePrefs(context);
 
+        Boolean b = userSharedPrefs.isLoggedInUser();
+        Boolean c = sharePrefs.isLoggedIn();
+
+        Toast.makeText(context, ""+b +" Admin also "+c, Toast.LENGTH_SHORT).show();
         if(sharePrefs.isLoggedIn()){
             holder.deleteItem.setVisibility(View.VISIBLE);
 
@@ -74,6 +78,7 @@ public class RecyclerAdapterShowEachItem extends RecyclerView.Adapter<RecyclerAd
                 }
             });
         }
+
         else if(userSharedPrefs.isLoggedInUser()){
             holder.deleteItem.setVisibility(View.GONE);
         }
