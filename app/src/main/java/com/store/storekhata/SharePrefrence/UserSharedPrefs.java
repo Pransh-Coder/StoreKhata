@@ -43,4 +43,12 @@ public class UserSharedPrefs {
     public void putUID_forUserLogin(String s) {
         getUserPreference().edit().putString("UID", s).apply();
     }
+
+    public String getName_forUserLogin() {
+        return getUserPreference().getString("name", "");
+    }
+
+    public void putName_forUserLogin(String s) {
+        getUserPreference().edit().putString("name", s).apply();
+    }
 }

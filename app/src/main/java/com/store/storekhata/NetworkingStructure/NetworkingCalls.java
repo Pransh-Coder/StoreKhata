@@ -388,16 +388,14 @@ public class NetworkingCalls {
                             Log.e("ob",temp.toString());
                             AID = temp.getString("AID");
                             UID =  temp.getString("UID");
+                            String name = temp.getString("Name");
 
                             Log.e("userLogin ",AID+ " "+ UID );
 
                             userSharedPrefs.setLoggedInUser(true);
                             userSharedPrefs.putAID_forUserLogin(AID);
                             userSharedPrefs.putUID_forUserLogin(UID);
-
-                            id = userSharedPrefs.getUID_forUserLogin();
-                            Log.e("Login_id", id);
-
+                            userSharedPrefs.putName_forUserLogin(name);
 
                         }
                         loginCallBack.Authenticateuser(UID);            // sending UID to logincallback interface of function Authenticateuser(UID)
@@ -494,14 +492,15 @@ public class NetworkingCalls {
     }*/
 
     public void deleteItem(final String debitId) {
+        date = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
+        Log.e("deleteItem_func_date",date);
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST, BASE_URL + "removeDebt.php", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 Log.d("deleteItem",response);
 
-                date = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
-                Log.e("date",date);
+
             }
         }, new Response.ErrorListener() {
             @Override
@@ -526,6 +525,9 @@ public class NetworkingCalls {
             public void onResponse(String response) {
                 Log.d("alldebts",response);
                 try {
+                    date = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
+                    Log.e("date",date);
+
                     JSONObject jsonObject = new JSONObject(response);               //convert String response into JsonObject
                     if(jsonObject.getString("status").equals("true")){
 
@@ -541,7 +543,7 @@ public class NetworkingCalls {
                             debt_pojo.setQuantity(jsonObject1.getString("Quantity"));
                             debt_pojo.setPriceOfOne(jsonObject1.getString("PriceOfOne"));
                             debt_pojo.setTotal(jsonObject1.getString("Total"));
-                            debt_pojo.setDate(jsonObject1.getString("date"));
+                            debt_pojo.setDate(jsonObject1.getString("ClearDate"));
 
                             debt_pojoList.add(debt_pojo);
 
@@ -569,5 +571,33 @@ public class NetworkingCalls {
         };
         addToQueue(stringRequest);
       return debtPojoList;
+    }
+
+    public void addItem(final String itemNam, final String qty, final String pr, final String personNam, final String uid, final String aid) {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, BASE_URL + "DebtPost.php", new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Log.d("addItem response",response);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        }){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String,String> params = new HashMap<String, String>();
+                params.put("item",itemNam);
+                params.put("quantity",qty);
+                params.put("name",personNam);
+                params.put("price",pr);
+                params.put("aid",aid);
+                params.put("uid",uid);
+                return params;
+
+            }
+        };
+        addToQueue(stringRequest);
     }
 }

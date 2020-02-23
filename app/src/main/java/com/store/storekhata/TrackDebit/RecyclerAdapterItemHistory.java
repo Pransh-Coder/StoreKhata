@@ -47,6 +47,7 @@ public class RecyclerAdapterItemHistory extends RecyclerView.Adapter<RecyclerAda
         holder.Qty.append(" "+debtPojoList.get(position).getQuantity());
         holder.PriceOfOne.append(" Rs."+debtPojoList.get(position).getPriceOfOne());
         holder.Total.append(" Rs."+debtPojoList.get(position).getTotal());
+        holder.debitClearDate.append(" "+debtPojoList.get(position).getDate());
     }
 
     @Override
@@ -57,7 +58,7 @@ public class RecyclerAdapterItemHistory extends RecyclerView.Adapter<RecyclerAda
     public static class ViewHolder extends RecyclerView.ViewHolder{
 
         ImageView deleteItem;
-        TextView ItemName,PriceOfOne,Total,Qty;
+        TextView ItemName,PriceOfOne,Total,Qty,debitClearDate;
         ConstraintLayout constraintLayout;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -67,6 +68,7 @@ public class RecyclerAdapterItemHistory extends RecyclerView.Adapter<RecyclerAda
             Total = itemView.findViewById(R.id.totalPrice);
             Qty = itemView.findViewById(R.id.qty);
             deleteItem = itemView.findViewById(R.id.delete);
+            debitClearDate = itemView.findViewById(R.id.debitClearDate);
             constraintLayout = itemView.findViewById(R.id.constraintView2);
         }
     }

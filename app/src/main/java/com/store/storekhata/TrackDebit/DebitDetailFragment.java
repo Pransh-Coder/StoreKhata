@@ -43,11 +43,14 @@ public class DebitDetailFragment extends Fragment {
         networkingCalls = new NetworkingCalls(getContext(),getActivity());
         Show_items_history = rootview.findViewById(R.id.itemsHistory);
         addItems =rootview.findViewById(R.id.addItems);
+
         //For UserLogin - uid is sent from networking class itself using this interface loginCallBack.Authenticateuser(UID);
+
         if (getArguments() != null) {    //for AdminLogin - getting value from RecyclerAdapterDebit
             uid = getArguments().getString("uid","");
             Toast.makeText(getContext(), ""+uid, Toast.LENGTH_SHORT).show();
         }
+
         recyclerView = rootview.findViewById(R.id.RecyclerView);
         layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
@@ -70,6 +73,16 @@ public class DebitDetailFragment extends Fragment {
             }
         });
 
+        addItems.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AddItemsFragment addItemsFragment = new AddItemsFragment();
+                FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+                fragmentTransaction.replace(R.id.on_boarding_fragment_container,addItemsFragment);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+            }
+        });
         return rootview;
     }
 

@@ -25,14 +25,25 @@
         android:id="@+id/RecyclerView"
         android:layout_marginTop="20dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/floatingLinear"
         app:layout_constraintTop_toBottomOf="@+id/heading1"/>
+
+    <LinearLayout
+        android:id="@+id/floatingLinear"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/itemsHistory"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/hist"
+        android:layout_marginRight="5dp"
+        android:layout_gravity="start"
         app:fab_colorPressed="@color/design_default_color_primary_dark"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"/>
@@ -41,8 +52,11 @@
         android:id="@+id/addItems"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"/>
+
+    </LinearLayout>
    <!-- <com.github.clans.fab.FloatingActionMenu
         android:id="@+id/material_design_android_floating_action_menu"
         android:layout_width="wrap_content"
