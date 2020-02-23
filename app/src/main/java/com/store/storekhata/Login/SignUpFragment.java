@@ -107,9 +107,9 @@ public class SignUpFragment extends Fragment {
 
                         networkingCalls.adminSignup(email,password,name,shopName);
                     }
-                    else if(flag==1){
+                    /*else if(flag==1){
                         networkingCalls.userSignup(email,password,name,shopName,mobilenum);
-                    }
+                    }*/
                     else {
                         networkingCalls.adminSignup(email,password,name,shopName);
                     }

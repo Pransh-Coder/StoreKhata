@@ -9,8 +9,17 @@ public class Debt_Pojo {
      String uid;
      String name;
      String total;
+     String Date;
 
-     public Debt_Pojo(){
+    public String getDate() {
+        return Date;
+    }
+
+    public void setDate(String date) {
+        Date = date;
+    }
+
+    public Debt_Pojo(){
 
      }
     public Debt_Pojo(String debtId, String itemName, String quantity, String priceOfOne, String uid, String name, String total) {

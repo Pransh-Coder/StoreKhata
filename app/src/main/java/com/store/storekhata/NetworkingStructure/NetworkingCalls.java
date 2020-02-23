@@ -21,15 +21,19 @@ import com.store.storekhata.SharePrefrence.SharePrefs;
 import com.store.storekhata.SharePrefrence.UserSharedPrefs;
 import com.store.storekhata.TrackDebit.Debt_Pojo;
 import com.store.storekhata.TrackDebit.RecyclerAdapterDebit;
+import com.store.storekhata.TrackDebit.RecyclerAdapterItemHistory;
 import com.store.storekhata.TrackDebit.RecyclerAdapterShowEachItem;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
@@ -45,8 +49,10 @@ public class NetworkingCalls {
 
     List<Debt_Pojo> debtPojoList = new ArrayList<>();
     List<Debt_Pojo> debtPojoList2 = new ArrayList<>();
+    List<Debt_Pojo> debt_pojoList = new ArrayList<>();
 
     String id;
+    String date;
 
     LoginCallBack loginCallBack;
     SignupCallBack signupCallBack;
@@ -164,6 +170,7 @@ public class NetworkingCalls {
                             sharePrefs.putAID(AID);
                             sharePrefs.putName(name);
 
+                            //We cannot send UID from here beco when admin signups using AdminLogin.php API in response no UID is coming
                             id = sharePrefs.getAID();
                             Log.e("id", id);
 
@@ -217,6 +224,7 @@ public class NetworkingCalls {
 
                             String total = jsonObject1.getString("Total");
                             String debit_id=jsonObject1.getString("DebtId");
+                            String Uid = jsonObject1.getString("UID");
 
                             debt_pojo.setQuantity(jsonObject1.getString("Quantity"));
                             debt_pojo.setPriceOfOne(jsonObject1.getString("PriceOfOne"));
@@ -229,7 +237,9 @@ public class NetworkingCalls {
 
                             debtPojoList.add(debt_pojo);
 
-                            Log.d("repo_debit ", total+ "Debit_id:"+ debit_id) ;
+                            Log.d("repo_debit ", total+ "Debit_id:"+ debit_id + " "+Uid) ;
+
+                            //sharePrefs.putUID(Uid);
 
                         }
 //                        recyclerAdapterDebit.notifyDataSetChanged();
@@ -282,13 +292,13 @@ public class NetworkingCalls {
 
                             String uid = jsonObject1.getString("UID");
 
-                            if(id.equals(uid)){                                                     // This id is coming from DebitDetailFragment
+                            if(id.equals(uid)){                                                     // This id is coming from DebitDetailFragment and this id is basically (uid)
                                 debt_pojo.setQuantity(jsonObject1.getString("Quantity"));
                                 debt_pojo.setPriceOfOne(jsonObject1.getString("PriceOfOne"));
                                 debt_pojo.setItemName(jsonObject1.getString("ItemName"));
                                 debt_pojo.setTotal(jsonObject1.getString("Total"));
                                 debt_pojo.setDebtId(jsonObject1.getString("DebtId"));
-
+                                debt_pojo.setDate(jsonObject1.getString("date"));
                                 debtPojoList2.add(debt_pojo);
 
                             }
@@ -299,6 +309,8 @@ public class NetworkingCalls {
                             debt_pojo.setDebtId(jsonObject1.getString("DebtId"));
 
                             debtPojoList2.add(debt_pojo);*/
+
+                            sharePrefs.putUID(uid);
 
                         }
 //                        recyclerAdapterDebit.notifyDataSetChanged();
@@ -383,7 +395,7 @@ public class NetworkingCalls {
                             userSharedPrefs.putAID_forUserLogin(AID);
                             userSharedPrefs.putUID_forUserLogin(UID);
 
-                            id = userSharedPrefs.getAID_forUserLogin();
+                            id = userSharedPrefs.getUID_forUserLogin();
                             Log.e("Login_id", id);
 
 
@@ -416,7 +428,7 @@ public class NetworkingCalls {
         addToQueue(stringRequest);
     }
 
-    public void userSignup(final String phoneNo, final String email, final String password, final String name, final String shopName) {
+    /*public void userSignup(final String phoneNo, final String email, final String password, final String name, final String shopName) {
         StringRequest stringRequest = new StringRequest(Request.Method.POST, BASE_URL + "UserSignUp.php", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -442,12 +454,12 @@ public class NetworkingCalls {
 
                             Log.e("repo ", " name :" + temp.getString("Name") + " and store " );
 
-                          /*  sharePrefs.setLoggedIn(true);
+                          *//*  sharePrefs.setLoggedIn(true);
                             sharePrefs.putAID(AID);
                             sharePrefs.putName(name);
 
                             id = sharePrefs.getAID();
-                            Log.e("id", id);*/
+                            Log.e("id", id);*//*
 
 
                         }
@@ -479,13 +491,17 @@ public class NetworkingCalls {
             }
         };
         addToQueue(stringRequest);
-    }
+    }*/
 
     public void deleteItem(final String debitId) {
+
         StringRequest stringRequest = new StringRequest(Request.Method.POST, BASE_URL + "removeDebt.php", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 Log.d("deleteItem",response);
+
+                date = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
+                Log.e("date",date);
             }
         }, new Response.ErrorListener() {
             @Override
@@ -497,9 +513,61 @@ public class NetworkingCalls {
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String,String> map = new HashMap<String, String>();
                 map.put("debtId",debitId);
+                map.put("date",date);
                 return map;
             }
         };
         addToQueue(stringRequest);
+    }
+
+    public List<Debt_Pojo> ItemsHistory(final String uid, final String aid, final RecyclerView recyclerView) {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, BASE_URL + "GetAllUserDebt.php", new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Log.d("alldebts",response);
+                try {
+                    JSONObject jsonObject = new JSONObject(response);               //convert String response into JsonObject
+                    if(jsonObject.getString("status").equals("true")){
+
+                        JSONArray jsonArray = jsonObject.getJSONArray("Debt");          // getting the jsonArray
+
+                        for(int i=0;i<jsonArray.length();i++){
+
+                            JSONObject jsonObject1 = (JSONObject)jsonArray.get(i);
+
+                            Debt_Pojo debt_pojo = new Debt_Pojo();
+
+                            debt_pojo.setItemName(jsonObject1.getString("ItemName"));
+                            debt_pojo.setQuantity(jsonObject1.getString("Quantity"));
+                            debt_pojo.setPriceOfOne(jsonObject1.getString("PriceOfOne"));
+                            debt_pojo.setTotal(jsonObject1.getString("Total"));
+                            debt_pojo.setDate(jsonObject1.getString("date"));
+
+                            debt_pojoList.add(debt_pojo);
+
+                        }
+                        RecyclerAdapterItemHistory recyclerAdapterItemHistory = new RecyclerAdapterItemHistory(context,debt_pojoList,activity);
+                        recyclerView.setAdapter(recyclerAdapterItemHistory);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        }){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String,String> map = new HashMap<String, String>();
+                map.put("uid",uid);
+                map.put("aid",aid);
+                return map;
+            }
+        };
+        addToQueue(stringRequest);
+      return debtPojoList;
     }
 }

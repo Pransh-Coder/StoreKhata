@@ -38,6 +38,13 @@ public class SharePrefs {
     public void putAID(String s) {
         getUserPreference().edit().putString("AID", s).apply();
     }
+    public String getUID() {
+        return getUserPreference().getString("UID", "");
+    }
+
+    public void putUID(String s) {
+        getUserPreference().edit().putString("UID", s).apply();
+    }
 
     public String getName() {
         return getUserPreference().getString("name", "");

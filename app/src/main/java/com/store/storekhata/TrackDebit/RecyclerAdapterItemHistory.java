@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -19,7 +18,7 @@ import com.store.storekhata.R;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RecyclerAdapterShowEachItem extends RecyclerView.Adapter<RecyclerAdapterShowEachItem.ViewHolder> {
+public class RecyclerAdapterItemHistory extends RecyclerView.Adapter<RecyclerAdapterItemHistory.ViewHolder> {
 
     Context context;
     List<Debt_Pojo> debtPojoList = new ArrayList<>();
@@ -27,7 +26,8 @@ public class RecyclerAdapterShowEachItem extends RecyclerView.Adapter<RecyclerAd
     NetworkingCalls networkingCalls;
     String debitId;
 
-    public RecyclerAdapterShowEachItem(Context context, List<Debt_Pojo> debtPojoList, Activity activity) {
+
+    public RecyclerAdapterItemHistory(Context context, List<Debt_Pojo> debtPojoList, Activity activity) {
         this.context = context;
         this.debtPojoList = debtPojoList;
         this.activity = activity;
@@ -36,33 +36,17 @@ public class RecyclerAdapterShowEachItem extends RecyclerView.Adapter<RecyclerAd
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.items_list,parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.items_history,parent,false);
         return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
-
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
         holder.ItemName.append(" "+debtPojoList.get(position).getItemName());
         holder.Qty.append(" "+debtPojoList.get(position).getQuantity());
         holder.PriceOfOne.append(" Rs."+debtPojoList.get(position).getPriceOfOne());
         holder.Total.append(" Rs."+debtPojoList.get(position).getTotal());
-        holder.debitTakenDate.append(" "+debtPojoList.get(position).getDate().substring(0,11));
-        networkingCalls = new NetworkingCalls(context,activity);
-        debitId = debtPojoList.get(position).getDebtId();
-
-        holder.deleteItem.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {                //send debitI
-
-                networkingCalls.deleteItem(debitId);
-                holder.constraintLayout.setVisibility(View.GONE);
-
-                Toast.makeText(context, "Deleted! Item Added to history!", Toast.LENGTH_SHORT).show();
-            }
-        });
-
     }
 
     @Override
@@ -71,8 +55,9 @@ public class RecyclerAdapterShowEachItem extends RecyclerView.Adapter<RecyclerAd
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder{
+
         ImageView deleteItem;
-        TextView ItemName,PriceOfOne,Total,Qty,debitTakenDate;
+        TextView ItemName,PriceOfOne,Total,Qty;
         ConstraintLayout constraintLayout;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -82,7 +67,6 @@ public class RecyclerAdapterShowEachItem extends RecyclerView.Adapter<RecyclerAd
             Total = itemView.findViewById(R.id.totalPrice);
             Qty = itemView.findViewById(R.id.qty);
             deleteItem = itemView.findViewById(R.id.delete);
-            debitTakenDate= itemView.findViewById(R.id.debitTakeDate);
             constraintLayout = itemView.findViewById(R.id.constraintView2);
         }
     }
