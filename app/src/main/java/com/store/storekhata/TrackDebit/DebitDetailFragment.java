@@ -59,6 +59,7 @@ public class DebitDetailFragment extends Fragment {
         //any how we have to supply UID here
         else {
             uid=userSharedPrefs.getUID_forUserLogin();
+            Toast.makeText(getContext(), ""+uid, Toast.LENGTH_SHORT).show();
         }
         recyclerView = rootview.findViewById(R.id.RecyclerView);
         layoutManager = new LinearLayoutManager(getContext());

@@ -149,7 +149,7 @@ public class NetworkingCalls {
                     JSONObject jsonObject = new JSONObject(response);
                     if (jsonObject.getString("status").equals("true")) {
 
-                        loginCallBack.AuthenticateAdmin();
+                        //loginCallBack.AuthenticateAdmin();
 
                         JSONArray jsonArray = jsonObject.getJSONArray("data");
                         Log.e("array" , jsonArray.toString());
@@ -176,6 +176,7 @@ public class NetworkingCalls {
 
                         }
                         //loginCallBack.AuthenticateUser();
+                        loginCallBack.AuthenticateAdmin();
                     }
 
                 } catch (JSONException e) {
@@ -236,9 +237,9 @@ public class NetworkingCalls {
 
                             debtPojoList.add(debt_pojo);
 
-                            Log.d("repo_debit ", total+ "Debit_id:"+ debit_id + " "+Uid) ;
+                            Log.d("repo_debit ", "total: "+total+ " Debit_id:"+ debit_id + " uid: "+Uid) ;
 
-                            //sharePrefs.putUID(Uid);
+                            sharePrefs.putUID(Uid);
 
                         }
 //                        recyclerAdapterDebit.notifyDataSetChanged();
@@ -290,6 +291,7 @@ public class NetworkingCalls {
                             final Debt_Pojo debt_pojo = new Debt_Pojo();
 
                             String uid = jsonObject1.getString("UID");
+                            Log.e("***uid***",uid + " id:"+id);
 
                             if(id.equals(uid)){                                                     // This id is coming from DebitDetailFragment and this id is basically (uid)
                                 debt_pojo.setQuantity(jsonObject1.getString("Quantity"));
@@ -298,8 +300,10 @@ public class NetworkingCalls {
                                 debt_pojo.setTotal(jsonObject1.getString("Total"));
                                 debt_pojo.setDebtId(jsonObject1.getString("DebtId"));
                                 debt_pojo.setDate(jsonObject1.getString("date"));
+
                                 debtPojoList2.add(debt_pojo);
 
+                                sharePrefs.putUID(uid);
                             }
                             /*debt_pojo.setQuantity(jsonObject1.getString("Quantity"));
                             debt_pojo.setPriceOfOne(jsonObject1.getString("PriceOfOne"));
@@ -309,7 +313,7 @@ public class NetworkingCalls {
 
                             debtPojoList2.add(debt_pojo);*/
 
-                            sharePrefs.putUID(uid);
+                            //sharePrefs.putUID(uid);
 
                         }
 //                        recyclerAdapterDebit.notifyDataSetChanged();

@@ -15,7 +15,7 @@ public class SharePrefs {
     }
 
     private SharedPreferences getUserPreference() {
-        return context.getSharedPreferences(context.getPackageName(), Activity.MODE_PRIVATE);
+        return context.getSharedPreferences("admin", Activity.MODE_PRIVATE);
     }
 
     public void removeAllSP()

@@ -13,7 +13,7 @@ public class UserSharedPrefs {
     }
 
     private SharedPreferences getUserPreference() {
-        return context.getSharedPreferences(context.getPackageName(), Activity.MODE_PRIVATE);
+        return context.getSharedPreferences("user", Activity.MODE_PRIVATE);
     }
 
     public void removeAllSharedPref()

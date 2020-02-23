@@ -46,7 +46,8 @@ public class OnBoardingActivity extends AppCompatActivity implements LoginCallBa
             transaction.addToBackStack(null);
             transaction.commit();
         }
-        if(userSharedPrefs.isLoggedInUser()){
+        //becoz of else if only when we do user login and then close the app the admin signup was automaticaaly done
+        else if(userSharedPrefs.isLoggedInUser()){
             DebitDetailFragment fragment = new DebitDetailFragment();
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
             transaction.replace(R.id.on_boarding_fragment_container, fragment);
@@ -84,14 +85,14 @@ public class OnBoardingActivity extends AppCompatActivity implements LoginCallBa
     }
 
     @Override
-    public void AuthenticateAdmin() {
+    public void AuthenticateAdmin() {   // This is for making transition
 
         TrackYourDebtFragment fragment = new TrackYourDebtFragment();
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.on_boarding_fragment_container, fragment);
         transaction.addToBackStack(null);
         transaction.commit();
-        ;
+
     }
 
 

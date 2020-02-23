@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.store.storekhata.NetworkingStructure.NetworkingCalls;
 import com.store.storekhata.R;
+import com.store.storekhata.SharePrefrence.SharePrefs;
 import com.store.storekhata.SharePrefrence.UserSharedPrefs;
 
 public class ItemsHistoryFragment extends Fragment {
@@ -25,6 +26,10 @@ public class ItemsHistoryFragment extends Fragment {
 
     UserSharedPrefs userSharedPrefs;
     NetworkingCalls networkingCalls;
+    SharePrefs sharePrefs;
+
+    String UID;
+    String AID;
 
     String uid;
 
@@ -46,14 +51,22 @@ public class ItemsHistoryFragment extends Fragment {
 
         userSharedPrefs = new UserSharedPrefs(getContext());
         networkingCalls = new NetworkingCalls(getContext(),getActivity());
-
+        sharePrefs = new SharePrefs(getContext());
        /* if (getArguments() != null) {    //Not working becoz when AdminLogins no uid is coming from server
             uid = getArguments().getString("uid_fromDebitDetailFragment","");
             Toast.makeText(getContext(), ""+uid, Toast.LENGTH_SHORT).show();
         }*/
 
-        String UID = userSharedPrefs.getUID_forUserLogin();
-        String AID = userSharedPrefs.getAID_forUserLogin();
+
+        if (userSharedPrefs.isLoggedInUser()){
+            UID = userSharedPrefs.getUID_forUserLogin();
+            AID = userSharedPrefs.getAID_forUserLogin();
+        }
+
+        else {
+            UID= sharePrefs.getUID();
+            AID=sharePrefs.getAID();
+        }
 
         Toast.makeText(getContext(), "uid: "+UID +" & aid: " + AID, Toast.LENGTH_SHORT).show();
         networkingCalls.ItemsHistory(UID,AID,recyclerView);
