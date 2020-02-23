@@ -15,6 +15,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.store.storekhata.NetworkingStructure.NetworkingCalls;
 import com.store.storekhata.R;
+import com.store.storekhata.SharePrefrence.SharePrefs;
+import com.store.storekhata.SharePrefrence.UserSharedPrefs;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +28,8 @@ public class RecyclerAdapterShowEachItem extends RecyclerView.Adapter<RecyclerAd
     Activity activity;
     NetworkingCalls networkingCalls;
     String debitId;
+    UserSharedPrefs userSharedPrefs;
+    SharePrefs sharePrefs;
 
     public RecyclerAdapterShowEachItem(Context context, List<Debt_Pojo> debtPojoList, Activity activity) {
         this.context = context;
@@ -49,8 +53,46 @@ public class RecyclerAdapterShowEachItem extends RecyclerView.Adapter<RecyclerAd
         holder.PriceOfOne.append(" Rs."+debtPojoList.get(position).getPriceOfOne());
         holder.Total.append(" Rs."+debtPojoList.get(position).getTotal());
         holder.debitTakenDate.append(" "+debtPojoList.get(position).getDate().substring(0,11));
+
         networkingCalls = new NetworkingCalls(context,activity);
-        debitId = debtPojoList.get(position).getDebtId();
+        userSharedPrefs= new UserSharedPrefs(context);
+        sharePrefs = new SharePrefs(context);
+
+        if(sharePrefs.isLoggedIn()){
+            holder.deleteItem.setVisibility(View.VISIBLE);
+
+            debitId = debtPojoList.get(position).getDebtId();
+
+            holder.deleteItem.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {                //send debitI
+
+                    networkingCalls.deleteItem(debitId);
+                    holder.constraintLayout.setVisibility(View.GONE);
+
+                    Toast.makeText(context, "Deleted! Item Added to history!", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
+        else if(userSharedPrefs.isLoggedInUser()){
+            holder.deleteItem.setVisibility(View.GONE);
+        }
+        /*else {
+            debitId = debtPojoList.get(position).getDebtId();
+
+            holder.deleteItem.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {                //send debitI
+
+                    networkingCalls.deleteItem(debitId);
+                    holder.constraintLayout.setVisibility(View.GONE);
+
+                    Toast.makeText(context, "Deleted! Item Added to history!", Toast.LENGTH_SHORT).show();
+                }
+            });
+
+        }*/
+        /*debitId = debtPojoList.get(position).getDebtId();
 
         holder.deleteItem.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -61,7 +103,7 @@ public class RecyclerAdapterShowEachItem extends RecyclerView.Adapter<RecyclerAd
 
                 Toast.makeText(context, "Deleted! Item Added to history!", Toast.LENGTH_SHORT).show();
             }
-        });
+        });*/
 
     }
 

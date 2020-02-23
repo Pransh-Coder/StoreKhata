@@ -394,12 +394,13 @@ public class NetworkingCalls {
 
                             userSharedPrefs.setLoggedInUser(true);
                             userSharedPrefs.putAID_forUserLogin(AID);
-                            userSharedPrefs.putUID_forUserLogin(UID);
+                            userSharedPrefs.putUID_forUserLogin(UID);       // we have directly saved the uid in user shared prefrence and directly passed to DebitDetailFragment in else part of it
                             userSharedPrefs.putName_forUserLogin(name);
 
                         }
-                        loginCallBack.Authenticateuser(UID);            // sending UID to logincallback interface of function Authenticateuser(UID)
-                        //loginCallBack.AuthenticateUser();
+                         //loginCallBack.Authenticateuser(UID);            // sending UID to logincallback interface of function Authenticateuser(UID) which is called
+
+                         loginCallBack.AuthUser();          //Used for making transition to DebitDetailFragment and not passing UID
                     }
 
                 } catch (JSONException e) {

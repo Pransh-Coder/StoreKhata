@@ -46,7 +46,7 @@ public class OnBoardingActivity extends AppCompatActivity implements LoginCallBa
             transaction.addToBackStack(null);
             transaction.commit();
         }
-        else if(userSharedPrefs.isLoggedInUser()){
+        if(userSharedPrefs.isLoggedInUser()){
             DebitDetailFragment fragment = new DebitDetailFragment();
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
             transaction.replace(R.id.on_boarding_fragment_container, fragment);
@@ -92,25 +92,29 @@ public class OnBoardingActivity extends AppCompatActivity implements LoginCallBa
         transaction.addToBackStack(null);
         transaction.commit();
         ;
-
-       /* LoginFragment loginFragment = new LoginFragment();
-        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.on_boarding_fragment_container,loginFragment);
-        fragmentTransaction.addToBackStack(null);
-        fragmentTransaction.commit();*/
     }
+
 
     @Override
     public void Authenticateuser(String UID) {
 
-        DebitDetailFragment fragment = new DebitDetailFragment();
+        /*DebitDetailFragment fragment = new DebitDetailFragment();
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.on_boarding_fragment_container, fragment);
         transaction.addToBackStack(null);
         transaction.commit();
         Bundle bundle = new Bundle();
-        bundle.putString("uid" , UID);
-        fragment.setArguments(bundle);
+        bundle.putString("uid" ,UID*//*userSharedPrefs.getUID_forUserLogin()*//*);
+        fragment.setArguments(bundle);*/
+    }
+
+    @Override
+    public void AuthUser() {
+        DebitDetailFragment fragment = new DebitDetailFragment();
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.on_boarding_fragment_container, fragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
     }
 
     @Override

@@ -47,10 +47,10 @@ public class ItemsHistoryFragment extends Fragment {
         userSharedPrefs = new UserSharedPrefs(getContext());
         networkingCalls = new NetworkingCalls(getContext(),getActivity());
 
-        if (getArguments() != null) {    //Not working becoz when AdminLogins no uid is coming from server
+       /* if (getArguments() != null) {    //Not working becoz when AdminLogins no uid is coming from server
             uid = getArguments().getString("uid_fromDebitDetailFragment","");
             Toast.makeText(getContext(), ""+uid, Toast.LENGTH_SHORT).show();
-        }
+        }*/
 
         String UID = userSharedPrefs.getUID_forUserLogin();
         String AID = userSharedPrefs.getAID_forUserLogin();

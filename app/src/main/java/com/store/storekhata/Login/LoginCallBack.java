@@ -5,4 +5,6 @@ public interface LoginCallBack {
     void AuthenticateAdmin();
 
     void Authenticateuser(String UID);
+
+    void AuthUser();
 }
