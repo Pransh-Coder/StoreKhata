@@ -14,6 +14,7 @@ import android.widget.EditText;
 
 import com.store.storekhata.NetworkingStructure.NetworkingCalls;
 import com.store.storekhata.R;
+import com.store.storekhata.SharePrefrence.SharePrefs;
 import com.store.storekhata.SharePrefrence.UserSharedPrefs;
 
 public class AddItemsFragment extends Fragment {
@@ -23,6 +24,9 @@ public class AddItemsFragment extends Fragment {
     Button add_item;
     UserSharedPrefs userSharedPrefs;
     NetworkingCalls networkingCalls;
+    SharePrefs sharePrefs;
+
+    String UID,AID,Name;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,6 +40,7 @@ public class AddItemsFragment extends Fragment {
 
         userSharedPrefs= new UserSharedPrefs(getContext());
         networkingCalls= new NetworkingCalls(getContext(),getActivity());
+        sharePrefs = new SharePrefs(getContext());
 
         itemName = rootview.findViewById(R.id.Item_name);
         quantity = rootview.findViewById(R.id.item_qty);
@@ -43,9 +48,17 @@ public class AddItemsFragment extends Fragment {
         //personName = rootview.findViewById(R.id.person_name);
         add_item=rootview.findViewById(R.id.add_item);
 
-        final String UID = userSharedPrefs.getUID_forUserLogin();
-        final String AID = userSharedPrefs.getAID_forUserLogin();
-        final String Name = userSharedPrefs.getName_forUserLogin();
+        if (sharePrefs.isLoggedIn()){
+            UID = sharePrefs.getUID();
+            AID = sharePrefs.getAID();
+            Name = sharePrefs.getName();
+        }
+        else {
+            UID = userSharedPrefs.getUID_forUserLogin();
+            AID = userSharedPrefs.getAID_forUserLogin();
+            Name = userSharedPrefs.getName_forUserLogin();
+        }
+
         add_item.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
