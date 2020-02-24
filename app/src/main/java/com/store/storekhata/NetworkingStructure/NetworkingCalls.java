@@ -1,6 +1,7 @@
 package com.store.storekhata.NetworkingStructure;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
@@ -47,6 +48,8 @@ public class NetworkingCalls {
     private SharePrefs sharePrefs;
     private UserSharedPrefs userSharedPrefs;
 
+    ProgressDialog dialog;
+
     List<Debt_Pojo> debtPojoList = new ArrayList<>();
     List<Debt_Pojo> debtPojoList2 = new ArrayList<>();
     List<Debt_Pojo> debt_pojoList = new ArrayList<>();
@@ -57,14 +60,19 @@ public class NetworkingCalls {
     LoginCallBack loginCallBack;
     SignupCallBack signupCallBack;
 
+
     public NetworkingCalls(Context context, Activity activity) {
         this.context = context;
         this.activity = activity;
         requestQueue = Volley.newRequestQueue(this.context);
         sharePrefs = new SharePrefs(context);
         userSharedPrefs= new UserSharedPrefs(context);
+        dialog = new ProgressDialog(context);
+        dialog.setMessage("Please Wait....");
+        dialog.setCancelable(false);
         loginCallBack = (LoginCallBack) activity;
         signupCallBack = (SignupCallBack) activity;     //??? why we do this
+
     }
 
     private void addToQueue(StringRequest request) {
@@ -76,10 +84,11 @@ public class NetworkingCalls {
     }
 
     public void adminSignup(final String email, final String password, final String name, final String storename) {
+        dialog.show();
         StringRequest stringRequest = new StringRequest(Request.Method.POST, BASE_URL + "AdminSignup.php", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-
+                dialog.dismiss();
                 try {
                     Log.e("responseSignup", response);
                     JSONObject jsonObject = new JSONObject(response);
@@ -140,10 +149,11 @@ public class NetworkingCalls {
     }
 
     public void adminLogin(final String email, final String password) {
+        dialog.show();
         StringRequest stringRequest = new StringRequest(Request.Method.POST, BASE_URL + "AdminLogin.php", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-
+                dialog.dismiss();
                 try {
                     Log.e("Response", response);
                     JSONObject jsonObject = new JSONObject(response);
@@ -204,11 +214,12 @@ public class NetworkingCalls {
     }
 
     public List<Debt_Pojo> showPersonsDebit(final RecyclerView recyclerView) {
+        dialog.show();
         StringRequest stringRequest = new StringRequest(Request.Method.POST, BASE_URL + "GetAdminClients.php", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 Log.d("showPersonsDebit", response);
-
+                dialog.dismiss();
                 try {
                     JSONObject jsonObject = new JSONObject(response);
                     if (jsonObject.getString("status").equals("true")) {
@@ -279,11 +290,12 @@ public class NetworkingCalls {
     }
 //Open Debit Details of Paticular Person
     public List<Debt_Pojo> showDebitDetails(final RecyclerView recyclerView, final String id) {
+        dialog.show();
         StringRequest stringRequest = new StringRequest(Request.Method.POST, BASE_URL + "GetAdminClients.php", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 Log.d("showPersonsDebit", response);
-
+                dialog.dismiss();
                 try {
                     JSONObject jsonObject = new JSONObject(response);
                     if (jsonObject.getString("status").equals("true")) {
@@ -356,9 +368,11 @@ public class NetworkingCalls {
     }
 
     public void addCustomer(final String Name, final String email, final String password, final String phoneNo, final String storeName){
+        dialog.show();
         StringRequest stringRequest = new StringRequest(Request.Method.POST, BASE_URL + "UserSignUp.php", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
+                dialog.dismiss();
                 Log.d("addCustomer response",response);
             }
         }, new Response.ErrorListener() {
@@ -384,9 +398,11 @@ public class NetworkingCalls {
     }
 
     public void userLogin(final String email, final String password) {
+        dialog.show();
         StringRequest stringRequest = new StringRequest(Request.Method.POST, BASE_URL + "UserLogin.php", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
+                dialog.dismiss();
                 Log.e("userResponse", response);
                 try {
                     Log.e("Response", response);
@@ -444,12 +460,13 @@ public class NetworkingCalls {
     }
 
     public void deleteItem(final String debitId) {
+        dialog.show();
         date = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
         Log.e("deleteItem_func_date",date);
-
         StringRequest stringRequest = new StringRequest(Request.Method.POST, BASE_URL + "removeDebt.php", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
+                dialog.dismiss();
                 Log.d("deleteItem",response);
 
 
@@ -472,9 +489,11 @@ public class NetworkingCalls {
     }
 
     public List<Debt_Pojo> ItemsHistory(final String uid, final String aid, final RecyclerView recyclerView) {
+        dialog.show();
         StringRequest stringRequest = new StringRequest(Request.Method.POST, BASE_URL + "GetAllUserDebt.php", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
+                dialog.dismiss();
                 Log.d("alldebts",response);
                 try {
                     date = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
@@ -526,9 +545,11 @@ public class NetworkingCalls {
     }
 
     public void addItem(final String itemNam, final String qty, final String pr, final String personNam, final String uid, final String aid) {
+        dialog.show();
         StringRequest stringRequest = new StringRequest(Request.Method.POST, BASE_URL + "DebtPost.php", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
+                dialog.dismiss();
                 Log.d("addItem response",response);
             }
         }, new Response.ErrorListener() {
