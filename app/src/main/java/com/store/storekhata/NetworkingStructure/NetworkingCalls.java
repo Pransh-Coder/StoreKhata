@@ -341,7 +341,13 @@ public class NetworkingCalls {
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("aid", sharePrefs.getAID());
+                //params.put("aid", sharePrefs.getAID());
+                if(sharePrefs.isLoggedIn()){
+                    params.put("aid", sharePrefs.getAID());
+                }
+                else {
+                    params.put("aid", userSharedPrefs.getAID_forUserLogin());
+                }
                 return params;
             }
         };
