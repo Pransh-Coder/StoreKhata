@@ -253,7 +253,7 @@ public class NetworkingCalls {
                             if(sharePrefs.isLoggedIn()){
 
                                 sharePrefs.putUID(Uid);
-                                sharePrefs.putName(jsonObject1.getString("Name"));
+                                //sharePrefs.putName(jsonObject1.getString("Name"));
 
                             }
                             else {
@@ -303,7 +303,7 @@ public class NetworkingCalls {
         StringRequest stringRequest = new StringRequest(Request.Method.POST, BASE_URL + "GetAdminClients.php", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                Log.d("showPersonsDebit", response);
+                Log.d("showDebitDetails", response);
                 dialog.dismiss();
                 try {
                     JSONObject jsonObject = new JSONObject(response);
@@ -321,6 +321,8 @@ public class NetworkingCalls {
                             String uid = jsonObject1.getString("UID");
                             Log.e("show***uid***",uid + " id:"+id);
 
+                            String name = jsonObject1.getString("Name");
+
                             if(id.equals(uid)){                                                     // This id is coming from DebitDetailFragment and this id is basically (uid)
                                 debt_pojo.setQuantity(jsonObject1.getString("Quantity"));
                                 debt_pojo.setPriceOfOne(jsonObject1.getString("PriceOfOne"));
@@ -331,7 +333,12 @@ public class NetworkingCalls {
 
                                 debtPojoList2.add(debt_pojo);
 
-                                sharePrefs.putUID(uid);
+                                if(sharePrefs.isLoggedIn()){
+
+                                    sharePrefs.putUID(uid);
+                                    sharePrefs.putName(name);
+
+                                }
                             }
                             /*debt_pojo.setQuantity(jsonObject1.getString("Quantity"));
                             debt_pojo.setPriceOfOne(jsonObject1.getString("PriceOfOne"));
