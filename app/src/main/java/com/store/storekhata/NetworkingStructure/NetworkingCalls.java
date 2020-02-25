@@ -155,7 +155,7 @@ public class NetworkingCalls {
             public void onResponse(String response) {
                 dialog.dismiss();
                 try {
-                    Log.e("Response", response);
+                    Log.e("adminResponse", response);
                     JSONObject jsonObject = new JSONObject(response);
                     if (jsonObject.getString("status").equals("true")) {
 
@@ -177,8 +177,9 @@ public class NetworkingCalls {
 
                             sharePrefs.setLoggedIn(true);
                             sharePrefs.putAID(AID);;
-                            sharePrefs.putName(name);
+                            //sharePrefs.putName(name);
 
+                            Log.e("putName",name);
                             //We cannot send UID from here beco when admin signups using AdminLogin.php API in response no UID is coming
                             id = sharePrefs.getAID();
                             Log.e("id", id);
@@ -249,8 +250,16 @@ public class NetworkingCalls {
 
                             Log.d("repo_debit ", "total: "+total+ " Debit_id:"+ debit_id + " uid: "+Uid) ;
 
-                            sharePrefs.putUID(Uid);
-                            userSharedPrefs.putUID_forUserLogin(Uid);
+                            if(sharePrefs.isLoggedIn()){
+
+                                sharePrefs.putUID(Uid);
+                                sharePrefs.putName(jsonObject1.getString("Name"));
+
+                            }
+                            else {
+                                userSharedPrefs.putUID_forUserLogin(Uid);
+
+                            }
 
                         }
 //                        recyclerAdapterDebit.notifyDataSetChanged();
@@ -428,6 +437,8 @@ public class NetworkingCalls {
                             userSharedPrefs.putAID_forUserLogin(AID);
                             userSharedPrefs.putUID_forUserLogin(UID);       // we have directly saved the uid in user shared prefrence and directly passed to DebitDetailFragment in else part of it
                             userSharedPrefs.putName_forUserLogin(name);
+
+                            Log.e("putNameUser",name);
 
                         }
                          //loginCallBack.Authenticateuser(UID);            // sending UID to logincallback interface of function Authenticateuser(UID) which is called

@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.github.clans.fab.FloatingActionMenu;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.store.storekhata.NetworkingStructure.NetworkingCalls;
 import com.store.storekhata.R;
@@ -25,11 +26,14 @@ public class DebitDetailFragment extends Fragment {
     RecyclerView recyclerView;
     RecyclerView.LayoutManager layoutManager;
     RecyclerView.Adapter adapter;
-    FloatingActionButton Show_items_history,addItems;
+    //FloatingActionButton Show_items_history,addItems;
     NetworkingCalls networkingCalls;
     UserSharedPrefs userSharedPrefs;
 
     String uid;
+
+    FloatingActionMenu materialDesignFAM;
+    com.github.clans.fab.FloatingActionButton Show_items_history,addItems;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -45,8 +49,15 @@ public class DebitDetailFragment extends Fragment {
         networkingCalls = new NetworkingCalls(getContext(),getActivity());
         userSharedPrefs = new UserSharedPrefs(getContext());
 
-        Show_items_history = rootview.findViewById(R.id.itemsHistory);
-        addItems =rootview.findViewById(R.id.addItems);
+       /* Show_items_history = rootview.findViewById(R.id.itemsHistory);
+        addItems =rootview.findViewById(R.id.addItems);*/
+
+
+        materialDesignFAM = (FloatingActionMenu) rootview.findViewById(R.id.material_design_android_floating_action_menu);
+        addItems =  rootview.findViewById(R.id.addItems);
+        Show_items_history =  rootview.findViewById(R.id.itemsHistory);
+        //floatingActionButton3 = (FloatingActionButton) rootview.findViewById(R.id.material_design_floating_action_menu_item3);
+
 
         //For UserLogin - uid is sent from networking class itself using this interface loginCallBack.Authenticateuser(UID);
 
@@ -93,6 +104,20 @@ public class DebitDetailFragment extends Fragment {
                 fragmentTransaction.commit();
             }
         });
+/*
+
+        floatingActionButton1.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                //TODO something when floating action menu first item clicked
+                Toast.makeText(getContext(), "Clicked!", Toast.LENGTH_SHORT).show();
+            }
+        });
+        floatingActionButton2.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                //TODO something when floating action menu second item clicked
+                Toast.makeText(getContext(), "Clicked!", Toast.LENGTH_SHORT).show();
+            }
+        });*/
         return rootview;
     }
 
