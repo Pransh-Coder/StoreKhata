@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -189,7 +190,9 @@ public class NetworkingCalls {
                         //loginCallBack.AuthenticateUser();
                         loginCallBack.AuthenticateAdmin();
                     }
-
+                    else {
+                        Toast.makeText(context, "Wrong Email or Password!!", Toast.LENGTH_SHORT).show();
+                    }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -452,7 +455,9 @@ public class NetworkingCalls {
 
                          loginCallBack.AuthUser();          //Used for making transition to DebitDetailFragment and not passing UID
                     }
-
+                    else {
+                        Toast.makeText(context, "Wrong Email/Password!", Toast.LENGTH_SHORT).show();
+                    }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

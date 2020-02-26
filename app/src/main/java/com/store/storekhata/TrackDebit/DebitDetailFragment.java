@@ -63,14 +63,14 @@ public class DebitDetailFragment extends Fragment {
 
         if (getArguments() != null) {    //for AdminLogin - getting value from RecyclerAdapterDebit
             uid = getArguments().getString("uid","");
-            Toast.makeText(getContext(), ""+uid, Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getContext(), ""+uid, Toast.LENGTH_SHORT).show();
         }
         //else is used so that sometimes after userLogin we send uid in parametrs of Authenticateuser(UID)
 
-        //any how we have to supply UID here
+        //any how we have to supply UID here  ****[it is used when  using usetLogin]****
         else {
             uid=userSharedPrefs.getUID_forUserLogin();
-            Toast.makeText(getContext(), ""+uid, Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getContext(), ""+uid, Toast.LENGTH_SHORT).show();
         }
         recyclerView = rootview.findViewById(R.id.RecyclerView);
         layoutManager = new LinearLayoutManager(getContext());

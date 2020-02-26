@@ -97,7 +97,7 @@ public class LoginFragment extends Fragment {
             @Override
             public void onClick(View view) {
 
-                Toast.makeText(getContext(), "clicked!", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getContext(), "clicked!", Toast.LENGTH_SHORT).show();
 
                 Email =email.getText().toString();
                 Password = password.getText().toString();

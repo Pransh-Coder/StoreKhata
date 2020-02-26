@@ -89,7 +89,7 @@ public class RecyclerAdapterDebit extends RecyclerView.Adapter<RecyclerAdapterDe
         holder.cir_img.setText(debtPojoList.get(position).getName().substring(0,1));
 
         final String uid = debtPojoList.get(position).getUid();
-        Toast.makeText(context, ""+uid, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(context, ""+uid, Toast.LENGTH_SHORT).show();
 
         holder.constraintLayout.setOnClickListener(new View.OnClickListener() {
             @Override

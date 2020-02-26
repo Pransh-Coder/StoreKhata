@@ -68,7 +68,7 @@ public class ItemsHistoryFragment extends Fragment {
             AID=sharePrefs.getAID();
         }
 
-        Toast.makeText(getContext(), "uid: "+UID +" & aid: " + AID, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getContext(), "uid: "+UID +" & aid: " + AID, Toast.LENGTH_SHORT).show();
         networkingCalls.ItemsHistory(UID,AID,recyclerView);
 
 

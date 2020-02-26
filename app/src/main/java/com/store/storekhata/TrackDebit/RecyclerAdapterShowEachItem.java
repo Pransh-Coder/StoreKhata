@@ -2,6 +2,7 @@ package com.store.storekhata.TrackDebit;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -61,7 +63,7 @@ public class RecyclerAdapterShowEachItem extends RecyclerView.Adapter<RecyclerAd
         Boolean b = userSharedPrefs.isLoggedInUser();
         Boolean c = sharePrefs.isLoggedIn();
 
-        Toast.makeText(context, ""+b +" Admin also "+c, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(context, ""+b +" Admin also "+c, Toast.LENGTH_SHORT).show();
         if(sharePrefs.isLoggedIn()){
             holder.deleteItem.setVisibility(View.VISIBLE);
 
@@ -71,10 +73,31 @@ public class RecyclerAdapterShowEachItem extends RecyclerView.Adapter<RecyclerAd
                 @Override
                 public void onClick(View view) {                //send debitI
 
-                    networkingCalls.deleteItem(debitId);
+                    new AlertDialog.Builder(context)
+                            .setTitle("Delete Item")
+                            .setMessage("Are you sure you want to delete this Item?")
+
+                            // Specifying a listener allows you to take an action before dismissing the dialog.
+                            // The dialog is automatically dismissed when a dialog button is clicked.
+                            .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    // Continue with delete operation
+                                    networkingCalls.deleteItem(debitId);
+                                    holder.constraintLayout.setVisibility(View.GONE);
+
+                                    Toast.makeText(context, "Deleted! Item Added to history!", Toast.LENGTH_SHORT).show();
+                                }
+                            })
+
+                            // A null listener allows the button to dismiss the dialog and take no further action.
+                            .setNegativeButton(android.R.string.no, null)
+                            .setIcon(android.R.drawable.ic_dialog_alert)
+                            .show();
+
+                   /* networkingCalls.deleteItem(debitId);
                     holder.constraintLayout.setVisibility(View.GONE);
 
-                    Toast.makeText(context, "Deleted! Item Added to history!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "Deleted! Item Added to history!", Toast.LENGTH_SHORT).show();*/
                 }
             });
         }
