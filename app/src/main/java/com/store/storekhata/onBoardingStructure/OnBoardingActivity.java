@@ -43,7 +43,6 @@ public class OnBoardingActivity extends AppCompatActivity implements LoginCallBa
             TrackYourDebtFragment fragment = new TrackYourDebtFragment();
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
             transaction.replace(R.id.on_boarding_fragment_container, fragment);
-            transaction.addToBackStack(null);
             transaction.commit();
         }
         //becoz of else if only when we do user login and then close the app the admin signup was automaticaaly done
@@ -51,14 +50,12 @@ public class OnBoardingActivity extends AppCompatActivity implements LoginCallBa
             DebitDetailFragment fragment = new DebitDetailFragment();
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
             transaction.replace(R.id.on_boarding_fragment_container, fragment);
-            transaction.addToBackStack(null);
             transaction.commit();
         }
         else {
             LoginFragment fragment = new LoginFragment();
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
             transaction.replace(R.id.on_boarding_fragment_container, fragment);
-            transaction.addToBackStack(null);
             transaction.commit();
         }
 
@@ -90,7 +87,6 @@ public class OnBoardingActivity extends AppCompatActivity implements LoginCallBa
         TrackYourDebtFragment fragment = new TrackYourDebtFragment();
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.on_boarding_fragment_container, fragment);
-        transaction.addToBackStack(null);
         transaction.commit();
 
     }
@@ -114,7 +110,6 @@ public class OnBoardingActivity extends AppCompatActivity implements LoginCallBa
         DebitDetailFragment fragment = new DebitDetailFragment();
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.on_boarding_fragment_container, fragment);
-        transaction.addToBackStack(null);
         transaction.commit();
     }
 
