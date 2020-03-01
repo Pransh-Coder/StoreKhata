@@ -68,7 +68,7 @@ public class AddCustomerFragment extends Fragment {
                         Email.getText().clear();
                         Password.getText().clear();
                         phone.getText().clear();
-                        StoreName.getText().clear();
+                        //StoreName.getText().clear();
 
                 }
             }
