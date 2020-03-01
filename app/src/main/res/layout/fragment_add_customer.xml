@@ -204,21 +204,21 @@
 
                 </LinearLayout>
 
-                <LinearLayout
+                <!--<LinearLayout
                     android:id="@+id/linear5"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     app:layout_constraintTop_toBottomOf="@+id/linear4">
 
-                    <!-- <ImageView
+                    &lt;!&ndash; <ImageView
                          android:id="@+id/storeimg"
                          android:layout_width="40dp"
                          android:layout_height="40dp"
                          android:layout_marginTop="5dp"
                          android:src="@drawable/plus"
                          app:layout_constraintTop_toBottomOf="@+id/phonimg"
-                         app:layout_constraintLeft_toLeftOf="parent"/>-->
+                         app:layout_constraintLeft_toLeftOf="parent"/>&ndash;&gt;
 
 
                     <com.google.android.material.textfield.TextInputLayout
@@ -243,7 +243,7 @@
                             android:inputType="textPhonetic" />
                     </com.google.android.material.textfield.TextInputLayout>
 
-                </LinearLayout>
+                </LinearLayout>-->
 
                 <Button
                     android:id="@+id/add_customer"

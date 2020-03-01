@@ -38,7 +38,7 @@ public class AddCustomerFragment extends Fragment {
         Password = rootview.findViewById(R.id.password);
         phone = rootview.findViewById(R.id.phone);
         add_customer= rootview.findViewById(R.id.add_customer);
-        StoreName = rootview.findViewById(R.id.store);
+       // StoreName = rootview.findViewById(R.id.store);
 
         add_customer.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -48,7 +48,7 @@ public class AddCustomerFragment extends Fragment {
                 email = Email.getText().toString();
                 password=Password.getText().toString();
                 phone_no=phone.getText().toString();
-                store_name = StoreName.getText().toString();
+                //store_name = StoreName.getText().toString();
 
                 if(Name.getText().length()==0){
                     Name.setError("Name Feild Empty!");
@@ -59,11 +59,11 @@ public class AddCustomerFragment extends Fragment {
                 else if(Password.getText().length()==0){
                     Password.setError("Address Feild Empty!");
                 }
-                else if(StoreName.getText().length()==0){
+                /*else if(StoreName.getText().length()==0){
                     StoreName.setError("Store Name Feild Empty!");
-                }
+                }*/
                 else {
-                        networkingCalls.addCustomer(name,email,password,phone_no,store_name);
+                        networkingCalls.addCustomer(name,email,password,phone_no);
                         Name.getText().clear();
                         Email.getText().clear();
                         Password.getText().clear();

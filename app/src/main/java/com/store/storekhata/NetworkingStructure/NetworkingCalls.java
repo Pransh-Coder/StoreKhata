@@ -386,7 +386,7 @@ public class NetworkingCalls {
         return debtPojoList2;
     }
 
-    public void addCustomer(final String Name, final String email, final String password, final String phoneNo, final String storeName){
+    public void addCustomer(final String Name, final String email, final String password, final String phoneNo){
         dialog.show();
         StringRequest stringRequest = new StringRequest(Request.Method.POST, BASE_URL + "UserSignUp.php", new Response.Listener<String>() {
             @Override
@@ -408,7 +408,7 @@ public class NetworkingCalls {
                 params.put("phone",phoneNo);
                 params.put("password",password);
                 params.put("aid",sharePrefs.getAID());
-                params.put("store",storeName);
+                /*params.put("store",storeName);*/
                 return params;
 
             }

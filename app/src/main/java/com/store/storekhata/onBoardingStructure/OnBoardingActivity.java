@@ -136,7 +136,7 @@ public class OnBoardingActivity extends AppCompatActivity implements LoginCallBa
             LoginFragment loginFragment = new LoginFragment();
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.on_boarding_fragment_container,loginFragment);
-            fragmentTransaction.addToBackStack(null);
+            //fragmentTransaction.addToBackStack(null);
             fragmentTransaction.commit();
         }
 
@@ -148,7 +148,7 @@ public class OnBoardingActivity extends AppCompatActivity implements LoginCallBa
         LoginFragment loginFragment = new LoginFragment();
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.on_boarding_fragment_container,loginFragment);
-        fragmentTransaction.addToBackStack(null);
+        //fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
     }
 }

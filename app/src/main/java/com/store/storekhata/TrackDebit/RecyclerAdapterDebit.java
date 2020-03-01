@@ -86,7 +86,7 @@ public class RecyclerAdapterDebit extends RecyclerView.Adapter<RecyclerAdapterDe
 
         holder.name.setText(debtPojoList.get(position).getName());
         holder.Rs.setText("Rs. "+ debtPojoList.get(position).getTotal());
-        holder.cir_img.setText(debtPojoList.get(position).getName().substring(0,1));
+        holder.cir_img.setText(debtPojoList.get(position).getName().substring(0,1).toUpperCase());
 
         final String uid = debtPojoList.get(position).getUid();
         //Toast.makeText(context, ""+uid, Toast.LENGTH_SHORT).show();
