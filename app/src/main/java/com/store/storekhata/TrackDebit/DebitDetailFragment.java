@@ -67,7 +67,7 @@ public class DebitDetailFragment extends Fragment {
         }
         //else is used so that sometimes after userLogin we send uid in parametrs of Authenticateuser(UID)
 
-        //any how we have to supply UID here  ****[it is used when  using usetLogin]****
+        //any how we have to supply UID here  ****[it is used when  using usetLogin]****            by this[ userSharedPrefs.putUID_forUserLogin(UID);] code we send uid from netorking class to DebitDetailFrag
         else {
             uid=userSharedPrefs.getUID_forUserLogin();
             //Toast.makeText(getContext(), ""+uid, Toast.LENGTH_SHORT).show();

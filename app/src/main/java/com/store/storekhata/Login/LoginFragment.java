@@ -113,7 +113,7 @@ public class LoginFragment extends Fragment {
                 }
                 else
                 {
-                    if(flag==2){
+                    if(flag==2){            //for AdminLogin
 
                         networkingCalls.adminLogin(Email,Password);
                     }

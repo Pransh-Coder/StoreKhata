@@ -64,7 +64,7 @@ public class RecyclerAdapterShowEachItem extends RecyclerView.Adapter<RecyclerAd
         Boolean c = sharePrefs.isLoggedIn();
 
         //Toast.makeText(context, ""+b +" Admin also "+c, Toast.LENGTH_SHORT).show();
-        if(sharePrefs.isLoggedIn()){
+        if(sharePrefs.isLoggedIn()){                                                    // for Admin
             holder.deleteItem.setVisibility(View.VISIBLE);
 
             debitId = debtPojoList.get(position).getDebtId();

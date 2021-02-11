@@ -41,13 +41,13 @@ public class RecyclerAdapterDebit extends RecyclerView.Adapter<RecyclerAdapterDe
         Log.d("loggy"," constructor called and list size is "+debtPojoList.size());
 
         // make a set in java
-        HashSet<String> allQuinqueIds=new HashSet<>();
+        HashSet<String> allQuinqueIds =new HashSet<>();
 
         for(int i=0;i<debtPojoList.size();i++){
             allQuinqueIds.add(debtPojoList.get(i).getUid());            //adding UID to hashset
             Log.d("hashset",""+allQuinqueIds.size());
         }
-        //        now we have all uniwue  ids in set
+        //        now we have all unique  ids in set
         ArrayList<Debt_Pojo> correctList= new ArrayList<>();
 
         for(String key:allQuinqueIds){
@@ -99,6 +99,7 @@ public class RecyclerAdapterDebit extends RecyclerView.Adapter<RecyclerAdapterDe
                 fragmentTransaction.replace(R.id.on_boarding_fragment_container,debitDetailFragment);
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
+
                 Bundle bundle=new Bundle();             // send uid to DebitDetailFragment
                 bundle.putString("uid",uid);
                 debitDetailFragment.setArguments(bundle);

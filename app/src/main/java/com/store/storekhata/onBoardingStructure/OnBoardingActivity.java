@@ -38,7 +38,7 @@ public class OnBoardingActivity extends AppCompatActivity implements LoginCallBa
       /*  NavController navController = Navigation.findNavController(this, R.id.on_boarding_fragment_container);
         NavigationUI.setupActionBarWithNavController(this, navController);*/
 
-        if(sharePrefs.isLoggedIn()){
+        if(sharePrefs.isLoggedIn()){            //if true move to TrackYourDebtFragment (ADMIN_Login)
 
             TrackYourDebtFragment fragment = new TrackYourDebtFragment();
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();

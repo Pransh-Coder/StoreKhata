@@ -10,7 +10,7 @@ public class SharePrefs {
 
     private Context context;
 
-    public SharePrefs(Context context) {
+    public SharePrefs(Context context) {        //constructor
         this.context = context;
     }
 
@@ -18,7 +18,7 @@ public class SharePrefs {
         return context.getSharedPreferences("admin", Activity.MODE_PRIVATE);
     }
 
-    public void removeAllSP()
+    public void removeAllSP()               // mainly used for loging out (clearing all the data)
     {
         getUserPreference().edit().clear().commit();
 

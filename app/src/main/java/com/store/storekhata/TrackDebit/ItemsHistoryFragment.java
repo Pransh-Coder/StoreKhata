@@ -47,7 +47,7 @@ public class ItemsHistoryFragment extends Fragment {
 
         recyclerView = rootview.findViewById(R.id.recycler_view);
         layoutManager= new LinearLayoutManager(getContext());
-        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setLayoutManager(layoutManager);                           // this recyclerView is passed in the ItemsHistory
 
         userSharedPrefs = new UserSharedPrefs(getContext());
         networkingCalls = new NetworkingCalls(getContext(),getActivity());
@@ -63,7 +63,7 @@ public class ItemsHistoryFragment extends Fragment {
             AID = userSharedPrefs.getAID_forUserLogin();
         }
 
-        else {
+        else {                              // for AdminLogin
             UID= sharePrefs.getUID();
             AID=sharePrefs.getAID();
         }

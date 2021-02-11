@@ -67,8 +67,6 @@
 
     </androidx.cardview.widget.CardView>-->
 
-
-
     <Button
         android:id="@+id/addCust"
         android:drawableLeft="@drawable/plus"

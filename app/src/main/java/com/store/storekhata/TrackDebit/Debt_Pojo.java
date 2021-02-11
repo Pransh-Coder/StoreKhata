@@ -22,7 +22,8 @@ public class Debt_Pojo {
     public Debt_Pojo(){
 
      }
-    public Debt_Pojo(String debtId, String itemName, String quantity, String priceOfOne, String uid, String name, String total) {
+
+    public Debt_Pojo(String debtId, String itemName, String quantity, String priceOfOne, String uid, String name, String total) {       // constructor for giving fake data
         this.debtId = debtId;
         this.itemName = itemName;
         this.quantity = quantity;

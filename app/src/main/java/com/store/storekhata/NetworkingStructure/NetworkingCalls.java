@@ -1,10 +1,15 @@
 package com.store.storekhata.NetworkingStructure;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -19,6 +24,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.store.storekhata.Login.LoginCallBack;
 import com.store.storekhata.Login.SignupCallBack;
+import com.store.storekhata.R;
 import com.store.storekhata.SharePrefrence.SharePrefs;
 import com.store.storekhata.SharePrefrence.UserSharedPrefs;
 import com.store.storekhata.TrackDebit.Debt_Pojo;
@@ -89,10 +95,10 @@ public class NetworkingCalls {
         StringRequest stringRequest = new StringRequest(Request.Method.POST, BASE_URL + "AdminSignup.php", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                dialog.dismiss();
+                dialog.dismiss();       // when we get Response we dismiss the dialog
                 try {
                     Log.e("responseSignup", response);
-                    JSONObject jsonObject = new JSONObject(response);
+                    JSONObject jsonObject = new JSONObject(response);               //converting String response to JSONObject
                     if (jsonObject.getString("status").equals("true")) {
 
                         signupCallBack.AuthenticateSignup();
@@ -176,7 +182,7 @@ public class NetworkingCalls {
 
                             Log.e("repo ", " name :" + temp.getString("Name") + " and store " );
 
-                            sharePrefs.setLoggedIn(true);
+                            sharePrefs.setLoggedIn(true);       //setting the login as true
                             sharePrefs.putAID(AID);;
                             //sharePrefs.putName(name);
 
@@ -255,7 +261,7 @@ public class NetworkingCalls {
 
                             if(sharePrefs.isLoggedIn()){
 
-                                sharePrefs.putUID(Uid);
+                                sharePrefs.putUID(Uid);                                 //for admin
                                 //sharePrefs.putName(jsonObject1.getString("Name"));
 
                             }
@@ -301,7 +307,7 @@ public class NetworkingCalls {
         return debtPojoList;
     }
 //Open Debit Details of Paticular Person
-    public List<Debt_Pojo> showDebitDetails(final RecyclerView recyclerView, final String id) {
+    public List<Debt_Pojo> showDebitDetails(final RecyclerView recyclerView, final String id) {         // this id coressponds to uid sent from DebtDetailFragment
         dialog.show();
         StringRequest stringRequest = new StringRequest(Request.Method.POST, BASE_URL + "GetAdminClients.php", new Response.Listener<String>() {
             @Override
@@ -313,7 +319,6 @@ public class NetworkingCalls {
                     if (jsonObject.getString("status").equals("true")) {
 
                         JSONArray jsonArray = jsonObject.getJSONArray("Debt");
-
 
                         for (int i = 0; i < jsonArray.length(); i++) {
 
@@ -334,9 +339,9 @@ public class NetworkingCalls {
                                 debt_pojo.setDebtId(jsonObject1.getString("DebtId"));
                                 debt_pojo.setDate(jsonObject1.getString("date"));
 
-                                debtPojoList2.add(debt_pojo);
+                                debtPojoList2.add(debt_pojo);           // adding items in ArrayList
 
-                                if(sharePrefs.isLoggedIn()){
+                                if(sharePrefs.isLoggedIn()){            //for Admin
 
                                     sharePrefs.putUID(uid);
                                     sharePrefs.putName(name);
@@ -392,12 +397,12 @@ public class NetworkingCalls {
             @Override
             public void onResponse(String response) {
                 dialog.dismiss();
-                Log.d("addCustomer response",response);
+                Log.d("addCustomerResponse",response);
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-
+                dialog.dismiss();
             }
         }){
             @Override

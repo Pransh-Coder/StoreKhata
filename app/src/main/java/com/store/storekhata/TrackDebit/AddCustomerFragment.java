@@ -1,16 +1,22 @@
 package com.store.storekhata.TrackDebit;
 
+import android.app.Dialog;
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.store.storekhata.NetworkingStructure.NetworkingCalls;
 import com.store.storekhata.R;
@@ -44,38 +50,68 @@ public class AddCustomerFragment extends Fragment {
             @Override
             public void onClick(View view) {
 
-                name = Name.getText().toString();
-                email = Email.getText().toString();
-                password=Password.getText().toString();
-                phone_no=phone.getText().toString();
-                //store_name = StoreName.getText().toString();
+                if (checkInput()){
 
-                if(Name.getText().length()==0){
-                    Name.setError("Name Feild Empty!");
-                }
-                else if(Email.getText().length()==0){
-                    Email.setError("Email Feild Empty!");
-                }
-                else if(Password.getText().length()==0){
-                    Password.setError("Address Feild Empty!");
-                }
-                /*else if(StoreName.getText().length()==0){
-                    StoreName.setError("Store Name Feild Empty!");
-                }*/
-                else {
-                        networkingCalls.addCustomer(name,email,password,phone_no);
-                        Name.getText().clear();
-                        Email.getText().clear();
-                        Password.getText().clear();
-                        phone.getText().clear();
-                        //StoreName.getText().clear();
-
+                    networkingCalls.addCustomer(name,email,password,phone_no);
+                    Name.getText().clear();
+                    Email.getText().clear();
+                    Password.getText().clear();
+                    phone.getText().clear();
+                    showCustomerDialog();
                 }
             }
         });
-
-
         return rootview;
+    }
+
+    public boolean checkInput(){
+
+        if(Name.getText().toString().isEmpty()){
+            Name.setError("Name Feild Empty!");
+            return false;
+        }
+        else if(Email.getText().toString().isEmpty()){
+            Email.setError("Email Feild Empty!");
+            return false;
+        }
+        else if(Password.getText().toString().isEmpty()){
+            Password.setError("Password Feild Empty!");
+            return false;
+        }
+        else if (phone.getText().toString().isEmpty()){
+            phone.setError("Phone Feild Empty!");
+            return false;
+        }
+        else if (phone.getText().length()!=10){
+            phone.setError("Please enter a valid phone number!");
+            return false;
+        }
+        else if(!Patterns.EMAIL_ADDRESS.matcher(Email.getText().toString()).matches())
+        {
+            Email.setError("Please enter a valid email");
+            return false;
+        }
+        else if(!Patterns.PHONE.matcher(phone.getText().toString()).matches())
+        {
+            phone.setError("Please enter a valid phone number!");
+            return false;
+        }
+        return true;
+    }
+
+    private void showCustomerDialog() {
+        final Dialog dialog = new Dialog(getContext());
+        dialog.setContentView(R.layout.added_customer_dialog);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.show();
+        ImageView cross = dialog.findViewById(R.id.cross);
+
+        cross.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
     }
 
 }

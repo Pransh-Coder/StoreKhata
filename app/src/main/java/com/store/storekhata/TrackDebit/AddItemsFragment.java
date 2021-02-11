@@ -48,7 +48,7 @@ public class AddItemsFragment extends Fragment {
         //personName = rootview.findViewById(R.id.person_name);
         add_item=rootview.findViewById(R.id.add_item);
 
-        if (sharePrefs.isLoggedIn()){
+        if (sharePrefs.isLoggedIn()){                           // for admin
             UID = sharePrefs.getUID();
             AID = sharePrefs.getAID();
             Name = sharePrefs.getName();
