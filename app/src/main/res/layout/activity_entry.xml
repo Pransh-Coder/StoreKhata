@@ -4,14 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".EntryActivity">
-<!--
+    tools:context=".activity.EntryActivity">
+
+
     <fragment
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/fragment"
         app:defaultNavHost="true"
         app:navGraph="@navigation/entry_navigation"
-        android:name="androidx.navigation.fragment.NavHostFragment"/>-->
+        android:name="androidx.navigation.fragment.NavHostFragment"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

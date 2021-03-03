@@ -1,8 +1,10 @@
-package com.store.storekhata;
+package com.store.storekhata.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import com.store.storekhata.R;
 
 public class EntryActivity extends AppCompatActivity {
 
