@@ -32,12 +32,12 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/login_text"
+            android:id="@+id/owner_login_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/normal_margin"
             android:layout_marginTop="@dimen/large_margin"
-            android:text="@string/login"
+            android:text="@string/shop_owner_login"
             android:textColor="@color/purple"
             android:textSize="@dimen/extra_large_text"
             app:layout_constraintStart_toStartOf="parent"
@@ -53,7 +53,7 @@
             android:layout_marginTop="@dimen/large_margin"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/login_text">
+            app:layout_constraintTop_toBottomOf="@+id/owner_login_text">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/enter_number"
@@ -76,17 +76,30 @@
             app:layout_constraintTop_toBottomOf="@+id/enter_number_layout" />
 
         <TextView
-            android:id="@+id/login_here"
+            android:id="@+id/account_signup_here"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/large_margin"
             android:layout_marginStart="@dimen/normal_margin"
             android:layout_marginEnd="@dimen/normal_margin"
-            android:text="@string/login_here"
+            android:text="@string/account_signup_here"
             android:textSize="@dimen/normal_text"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/next_button" />
+
+        <TextView
+            android:id="@+id/customer_login_here"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/normal_margin"
+            android:layout_marginStart="@dimen/normal_margin"
+            android:layout_marginEnd="@dimen/normal_margin"
+            android:text="@string/customer_login_here"
+            android:textSize="@dimen/normal_text"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/account_signup_here" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

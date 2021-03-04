@@ -8,6 +8,23 @@
     <fragment
         android:id="@+id/loginFragment"
         android:name="com.store.storekhata.fragments.entry.login.LoginFragment"
-        android:label="fragment_login"
-        tools:layout="@layout/fragment_login" />
+        android:label="@string/login"
+        tools:layout="@layout/fragment_login" >
+        <action
+            android:id="@+id/action_loginFragment_to_signupFragment"
+            app:destination="@id/signupFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/signupFragment"
+        android:name="com.store.storekhata.fragments.entry.signup.SignupFragment"
+        android:label="@string/signup"
+        tools:layout="@layout/signup_fragment" >
+        <action
+            android:id="@+id/action_signupFragment_to_shopOwnerLoginFragment"
+            app:destination="@id/shopOwnerLoginFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/shopOwnerLoginFragment"
+        android:name="com.store.storekhata.ShopOwnerLoginFragment"
+        android:label="@string/shop_owner_login" />
 </navigation>
