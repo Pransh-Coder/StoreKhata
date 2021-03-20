@@ -13,6 +13,8 @@ import androidx.navigation.Navigation;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.store.storekhata.HomeActivity;
@@ -22,6 +24,8 @@ public class LoginFragment extends Fragment {
 
     private LoginViewModel mViewModel;
     private TextView textView, signup;
+    private EditText enter_number_input;
+    private Button login_button;
 
     public static LoginFragment newInstance() {
         return new LoginFragment();
@@ -46,6 +50,9 @@ public class LoginFragment extends Fragment {
 
         textView = view.findViewById(R.id.login_text);
         signup = view.findViewById(R.id.login_here);
+        enter_number_input = view.findViewById(R.id.enter_number);
+        login_button = view.findViewById(R.id.login_button);
+
 
         signup.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -61,6 +68,28 @@ public class LoginFragment extends Fragment {
 
             }
         });
+
+        login_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(checkinput()){
+                    //perform_login();
+
+                }
+            }
+        });
+
+
+
+    }
+
+    private boolean checkinput() {
+        if (enter_number_input.getText().length() == 0){
+            enter_number_input.setError("Please enter phone number");
+            return false;
+        }
+
+        return true;
 
     }
 }

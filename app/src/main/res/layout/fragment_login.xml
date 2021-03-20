@@ -62,8 +62,28 @@
                 android:hint="@string/enter_number" />
         </com.google.android.material.textfield.TextInputLayout>
 
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/enter_password_layout"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/normal_margin"
+            android:layout_marginEnd="@dimen/normal_margin"
+            android:layout_marginTop="@dimen/large_margin"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/enter_number_layout">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/enter_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/enter_number" />
+        </com.google.android.material.textfield.TextInputLayout>
+
         <android.widget.Button
-            android:id="@+id/next_button"
+            android:id="@+id/login_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/normal_margin"
@@ -73,7 +93,7 @@
             android:minHeight="@dimen/button_size"
             android:text="@string/next"
             android:textColor="@color/white"
-            app:layout_constraintTop_toBottomOf="@+id/enter_number_layout" />
+            app:layout_constraintTop_toBottomOf="@+id/enter_password_layout" />
 
         <TextView
             android:id="@+id/login_here"
@@ -86,7 +106,7 @@
             android:textSize="@dimen/normal_text"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/next_button" />
+            app:layout_constraintTop_toBottomOf="@id/login_button" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
