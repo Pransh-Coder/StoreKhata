@@ -28,5 +28,6 @@
     <string name="account_signup_here"><font color='#6CA6EC'>Don’t Have an account?</font> Signup Here</string>
     <string name="customer_login_here"><font color='#6CA6EC'>Customer?</font> Login Here</string>
     <string name="signup">Signup</string>
+    <string name="enter_password">Enter Password</string>
 
 </resources>
